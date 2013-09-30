@@ -1,0 +1,120 @@
+\documentclass[a4paper,twoside,12pt]{report}
+
+% Load packages
+\usepackage[utf8x]{inputenc}
+\usepackage[UKenglish]{babel}
+\usepackage[round]{natbib}             % commands \citep e \citet for natural citations
+\usepackage{nextpage}                  % blank pages with \cleartooddpage
+\usepackage{amssymb}                   % maths stuff
+\usepackage{amsfonts}                  % maths stuff
+\usepackage{amsmath}                   % maths stuff
+\usepackage{amsbsy}                    % maths stuff
+\usepackage{color}                     % for coloured text & links
+\usepackage{array,arydshln}
+\usepackage{booktabs}                  % hrule with different widths and thicknesses
+\usepackage{multirow}
+\usepackage{pifont}
+\usepackage{textcomp}
+\usepackage[plain,chapter]{algorithm}  % for the algorithm environment
+\usepackage{algpseudocode}             % for the algorithm pseudocode
+\usepackage{setspace}                  % command \setstretch for line spacing on the text only
+\usepackage[figuresright]{rotating}    % environment sidewaystable
+
+% Temporary packages for testing
+\usepackage{graphicx}              % comment this out with XeLaTeX, but keep with pdfLaTeX
+% \usepackage{lipsum}                % Lorem ipsum
+
+% Use XeLaTeX and set fonts
+\usepackage{mathspec}           % keep math standard TeX fonts, not XeTeX fonts
+\usepackage{xltxtra}            % for the XeLaTeX stuff (it incorporates fontspec)
+\defaultfontfeatures{Mapping=tex-text,Contextuals=Swash,Ligatures={Required,Common,Contextual,Rare}}
+\setmainfont[Numbers=Lining]{Linux Libertine O}
+\setromanfont[Numbers=Lining]{Linux Libertine O}
+\setsansfont{Linux Biolinum O}
+\setmonofont[Scale=MatchLowercase]{Linux Mono O}
+\renewcommand{\thepage}{\arabic{page}} % font for the page numbers as lining
+
+% Format for the captions
+\usepackage[labelfont=bf,font=small]{caption}
+% \usepackage[bf,small,sf]{caption}
+
+% Some colors
+\definecolor{corlink}{rgb}{0, 0, .4}
+\definecolor{orange}{rgb}{.7, .40, 0}
+
+% Hyperlinks setup and meta-information
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks,
+  citecolor   = corlink,
+  filecolor   = corlink,
+  linkcolor   = corlink,
+  urlcolor    = corlink,
+  pdftitle    = {New Strategies for Permutation Methods in Brain Imaging},
+  pdfauthor   = {Anderson M. Winkler}}
+
+% Header and footer
+\usepackage{fancyhdr}
+\usepackage[fit]{truncate}
+\fancyhead[RE]{\truncate{0.9\headwidth}{\small\nouppercase{\textbf{\leftmark}}}}
+\fancyhead[LO]{\truncate{0.9\headwidth}{\small\nouppercase{\textbf{\rightmark}}}}
+\fancyhead[RO,LE]{\small\arabic{page}}  % right odd, left even
+\fancyfoot{}
+% \fancyfoot[C]{\textcolor{red}{\textbf{--- UNCORRECTED PROOF ---}}}
+
+% Margins (this uses fancyhdr package)
+%\usepackage{showframe}
+\topmargin      = 0mm
+\oddsidemargin  = 16mm % 5mm
+\evensidemargin = 4mm  % 5mm
+\marginparsep   = 0mm
+\marginparwidth = 0mm
+\textwidth      = 140mm
+\textheight     = 225mm
+\headwidth      = 140mm
+\headheight     = 6mm
+
+% Adjust footnotes indentation
+\usepackage[hang,flushmargin]{footmisc} 
+\renewcommand{\footnotemargin}{.8em}
+
+% Other new commands
+\newcommand{\ud}{\mathrm{d}}
+\newcommand{\blankpage}{\cleartooddpage[\thispagestyle{empty}]}
+\newcommand{\HRule}{\rule{\linewidth}{0.08em}}
+\renewcommand\multirowsetup{\centering}
+
+% Line spacing
+%\linespread{1.35} % this affects everything
+\newcommand{\lspac}{1.5}  % this affects only the main text, not footnotes, captions or tables
+\setlength{\skip\footins}{10mm} % distance between text and footnotes
+\setlength{\footnotesep}{4mm} % distance between the actual footnotes
+
+% Sections up to level 4
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+% For the title page
+\title{New Strategies for Permutation Methods in Brain Imaging}
+\author{Anderson M. Winkler}
+
+\begin{document}
+\maketitle
+\bibliographystyle{scabbrvnat}
+
+\pagestyle{fancy}
+\setstretch{\lspac}
+\blankpage \tableofcontents
+\blankpage \listoffigures
+\blankpage \listoftables
+\blankpage \listofalgorithms
+\setstretch{1}
+\blankpage \include{10intro}
+\blankpage \include{20permutation}
+\blankpage \include{30combination}
+\blankpage \appendix
+\renewcommand{\appendixname}{aaa}
+\blankpage \include{80terms}
+\blankpage \bibliography{refs}
+
+\end{document}          
