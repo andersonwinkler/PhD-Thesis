@@ -15,7 +15,6 @@
 \usepackage{multirow}
 \usepackage{pifont}
 \usepackage{textcomp}
-%\usepackage[plain,chapter]{algorithm}  % for the algorithm environment
 \usepackage{algpseudocode}             % for the algorithm pseudocode
 \usepackage{setspace}                  % command \setstretch for line spacing on the text only
 \usepackage[figuresright]{rotating}    % environment sidewaystable
@@ -110,11 +109,14 @@
 % \blankpage \listofalgorithms
 \setstretch{1}
 \blankpage \include{10intro}
-\blankpage \include{20permutation}
-\blankpage \include{30combination}
+\blankpage \include{20facewise}
+\blankpage \include{30piecewise}
+\blankpage \include{40permutation}
+\blankpage \include{50combination}
+\blankpage \include{60morphometry}
 \blankpage \appendix
 % \renewcommand{\appendixname}{aaa}
-% \blankpage \include{80terms}
+\blankpage \include{80terms}
 \blankpage \bibliography{refs}
 
 \end{document}          

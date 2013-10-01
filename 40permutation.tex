@@ -2,6 +2,8 @@
 \label{sec:permglm}
 \setstretch{\lspac}
 
+\section{Introduction}
+
 The field of neuroimaging has continuously expanded to encompass an ever growing variety of experimental methods. From the early experiments using positron emission tomography (\textsc{pet}) and functional magnetic resonance imaging (\textsc{fmri}), it is now often of interest to verify hypotheses using information obtained from, e.g.\ tensor-based morphometry (\textsc{tbm}), diffusion tensor imaging (\textsc{dti}), cortical thickness and surface area, cerebral perfusion, as well as many others and variations and combinations of these. All these different modalities produce images that have different physical and biological properties, as well as different information content. Despite this variety, most of the strategies for statistical analysis constitute linear models, and can be formulated within the \emph{general linear model} (\textsc{glm}). The \textsc{glm} is a simple, yet flexible framework of which many different types of analysis are particular cases \citep{Scheffe1959, Searle1971, Christensen2002}. The common strategy is to construct a plausible explanatory model for the observed data, estimate the parameters of this model, and compute a suitable statistic for testing of hypotheses on some or all of these parameters. The rejection or acceptance of a given hypothesis depends on the probablility of finding, due to chance alone, a statistic at least as high as the observed. Typically, but not necessarily, the hypothesis being tested is that one or more parameters are zero, being referred to as the \emph{null hypothesis}.
 
 If the parameters of the distribution of the statistic under the hypothesis being tested, be it the null or not, is known, such probability can be ascertained using this distribution. In many particular cases, a mathematical expression describes the behaviour of the statistic as a function of these parameters, and this analytical representation of the distribution can be used for hypotheses testing as long as the data satisfies a certain set of requirements under which the distribution arises and can be recovered asymptotically. A conclusion based on these \emph{parametric tests} will only be sound as long as the observed data possess these assumed stochastic properties, even if other methodological aspects are valid. Strategies that may be used when these assumptions are not met include, among others, the use of \emph{non-parametric tests}.
@@ -488,6 +490,208 @@ Algorithm~1 describes a procedure for permutation inference on contrasts of the 
 
 In the algorithm, the statistics $T$ for each point (voxel, vertex, face) are stored in the array $\mathbf{T}$, whereas the counters are stored in the arrays $\mathbf{U}$ and $\mathbf{F}$. The design matrix as well as the contrasts can be specific for each image point (voxelwise, vertexwise, facewise), and there is no challenge other than implementation. It is possible to omit the for-loop between lines 56 and 60, and instead store the distribution of the largest statistic as a vector of size $J$, which is then used to assess significance. The code runs faster, but it would be slightly less clear to present. In programming languages that offer good matrix manipulation capabilities, e.g.\ Octave, \textsc{matlab} or \textsc{r}, the for-loops that iterate for each point $\mathbf{v}$ can be replaced by matrix operations that are executed all in a single step. In the \textsc{Fmrib} Software Library (\textsc{fsl})\footnote{Available for download at \href{http://www.fmrib.ox.ac.uk/fsl}{\texttt{http://www.fmrib.ox.ac.uk/fsl}}.}, a fast implementation, in \textsc{c}++, of the \texttt{randomise} algorithm is available.
 
+\section{Worked examples}
+\label{sec:examples}
+
+The examples below serve to illustrate the permutation aspects discussed in the paper, all with tiny samples, $N=12$ only, so that the design matrices can be shown in their full extent. While permutation tests in general remain valid even with such small samples, these examples are by no means to be understood as a recommendation for sample sizes. There are many reasons why larger samples are more appropriate (see \citet{Button2013} for a recent review), and in what concerns permutations methods, larger samples allow smaller p-values, improve the variance estimates for each \textsc{vg} (which are embodied in the weighting matrix under restricted exchangeability), and allow finer control over the familywise error rate. For each example, the relevant contrasts are also shown.
+
+\paragraph{Example 1: Mean effect} Consider a multi-subject \textsc{fmri} study to investigate the \textsc{bold} response associated with a novel experimental task. After the first-level analysis (within subject), maps of contrasts of parameter estimates for each subject are used in a second level analysis. The design matrix for the mean effect is simply a column of ones, and permutations of the data or of the design matrix do not change the model with respect to the regressor of interest. However, by treating the errors as symmetric, instead of permutation, the signs of the ones in the design matrix, or of each datapoint, can be flipped randomly to create the empirical distribution from which inference can be performed. In the presence of nuisance variables, such as handedness, the procedure is performed as in either the Freedman--Lane or Smith methods, replacing the permutation matrix for a sign flipping matrix (Table~\ref{tab:ex_meaneffect}).
+
+\begin{table}[!t]
+\caption[Coding for Example 1]{Coding of the design matrix, exchangeability blocks and variance groups for \textbf{Example~1}. Under unrestricted exchangeability, all subjects are assigned to a single block, and with identical variances, all to a single variance group. The regressor $\mathbf{m}_1$ codes for the overall mean, whereas $\mathbf{m}_2$ codes for handedness.}
+\begin{center}
+{\small
+\begin{tabular}{@{}lccrr@{}}
+\toprule
+\multirow{2}{*}{\vspace*{-1.7mm}Coded data ($\mathbf{Y}$)} & \multirow{2}{*}{\vspace*{-1.7mm}\textsc{eb}} & \multirow{2}{*}{\vspace*{-1.7mm}\textsc{vg}} & \multicolumn{2}{c}{Model ($\mathbf{M}$)\hspace*{-2mm}}\\
+\cmidrule(l){4-5}
+& & &  $\mathbf{m}_1$ & $\mathbf{m}_2$\\
+\midrule
+Subject 1  & 1 & 1 & 1 & $h_{1}$\\
+Subject 2  & 1 & 1 & 1 & $h_{2}$\\
+Subject 3  & 1 & 1 & 1 & $h_{3}$\\
+Subject 4  & 1 & 1 & 1 & $h_{4}$\\
+Subject 5  & 1 & 1 & 1 & $h_{5}$\\
+Subject 6  & 1 & 1 & 1 & $h_{6}$\\
+Subject 7  & 1 & 1 & 1 & $h_{7}$\\
+Subject 8  & 1 & 1 & 1 & $h_{8}$\\
+Subject 9  & 1 & 1 & 1 & $h_{9}$\\
+Subject 10 & 1 & 1 & 1 & $h_{10}$\\
+Subject 11 & 1 & 1 & 1 & $h_{11}$\\
+Subject 12 & 1 & 1 & 1 & $h_{12}$\\
+\midrule
+Contrast 1 ($\mathbf{C}'_1$) & & & $+1$ & 0\\
+Contrast 2 ($\mathbf{C}'_2$) & & & $-1$ & 0\\
+\bottomrule
+\end{tabular}}
+\end{center}
+\label{tab:ex_meaneffect}
+\end{table}
+
+\paragraph{Example 2: Multiple regression} Consider the analysis of a study that compares patients and controls with respect to brain cortical thickness, and that recruiting process ensured that all selected subjects are exchangeable. Elder subjects may, however, have thinner cortices, regardless of the diagnosis so, without considering the possibility of interaction. To control for the confounding effect of age, it is included in the design as a nuisance regressor. Sex is also included. The permutation strategy follows the Freedman--Lane or Smith methods, with the residuals of the reduced model being permuted under unrestricted exchangeability (Table~\ref{tab:ex_multipleregression}).
+
+\begin{table}[!t]
+\caption[Coding for Example 2]{Coding for \textbf{Example~2}. Under unrestricted exchangeability, all subjects are assigned to a single block. The regressors $\mathbf{m}_1$ and $\mathbf{m}_2$ code for the experimental groups, $\mathbf{m}_3$ and $\mathbf{m}_4$ for age and sex.}
+\begin{center}
+{\small
+\begin{tabular}{@{}lccrrrr@{}}
+\toprule
+\multirow{2}{*}{\vspace*{-1.7mm}Coded data ($\mathbf{Y}$)} & \multirow{2}{*}{\vspace*{-1.7mm}\textsc{eb}} & \multirow{2}{*}{\vspace*{-1.7mm}\textsc{vg}} & \multicolumn{4}{c}{Model ($\mathbf{M}$)\hspace*{-3mm}}\\
+\cmidrule(l){4-7}
+& & & $\mathbf{m}_1$ & $\mathbf{m}_2$ & $\mathbf{m}_3$ & $\mathbf{m}_4$\\
+\midrule
+Subject 1   & 1 & 1 & 1 & 0 & $a_{1}$  & $s_{1}$\\
+Subject 2   & 1 & 1 & 1 & 0 & $a_{2}$  & $s_{2}$\\
+Subject 3   & 1 & 1 & 1 & 0 & $a_{3}$  & $s_{3}$\\
+Subject 4   & 1 & 1 & 1 & 0 & $a_{4}$  & $s_{4}$\\
+Subject 5   & 1 & 1 & 1 & 0 & $a_{5}$  & $s_{5}$\\
+Subject 6   & 1 & 1 & 1 & 0 & $a_{6}$  & $s_{6}$\\
+Subject 7   & 1 & 1 & 0 & 1 & $a_{7}$  & $s_{7}$\\
+Subject 8   & 1 & 1 & 0 & 1 & $a_{8}$  & $s_{8}$\\
+Subject 9   & 1 & 1 & 0 & 1 & $a_{9}$  & $s_{9}$\\
+Subject 10  & 1 & 1 & 0 & 1 & $a_{10}$ & $s_{10}$\\
+Subject 11  & 1 & 1 & 0 & 1 & $a_{11}$ & $s_{11}$\\
+Subject 12  & 1 & 1 & 0 & 1 & $a_{12}$ & $s_{12}$\\
+\midrule
+Contrast 1 ($\mathbf{C}'_1$) & & & $+1$ & $-1$ & 0 & 0\\
+Contrast 2 ($\mathbf{C}'_2$) & & & $-1$ & $+1$ & 0 & 0\\
+\bottomrule
+\end{tabular}}
+\end{center}
+\label{tab:ex_multipleregression}
+\end{table}
+
+\paragraph{Example 3: Paired $t$-test} Consider a study to investigate the effect of the use of a certain analgesic in the magnitude of the \textsc{bold} response associated with painful stimulation. In this example, the response after the treatment is compared with the response before the treatment, i.e., each subject is their own control. The experimental design is the ``paired $t$-test''. One \textsc{eb} is defined per subject, as the observatios are not exchangeable across subjects, and as the variance can be assumed to be homogeneous across all observations, only one \textsc{vg} is defined encompassing all observations (Table~\ref{tab:ex_pairedttest}).
+
+\begin{table}[!t]
+\caption[Coding for Example 3]{Coding of the design matrix exchangebility blocks and variance groups for \textbf{Example~3}. Observations are exchangeable only within subject, and variance can be estimated considering all observations as a single group. The regressor $\mathbf{m}_1$ codes for treatment, whereas $\mathbf{m}_2$ to $\mathbf{m}_7$ code for subject-specific mean.}
+\begin{center}
+{\small
+\begin{tabular}{@{}lccrrrrrrr@{}}
+\toprule
+\multirow{2}{*}{\vspace*{-1.7mm}Coded data ($\mathbf{Y}$)} & \multirow{2}{*}{\vspace*{-1.7mm}\textsc{eb}} & \multirow{2}{*}{\vspace*{-1.7mm}\textsc{vg}} & \multicolumn{7}{c}{Model ($\mathbf{M}$)\hspace*{-3mm}}\\
+\cmidrule(l){4-10}
+& & & $\mathbf{m}_1$ & $\mathbf{m}_2$ & $\mathbf{m}_3$ & $\mathbf{m}_4$& $\mathbf{m}_5$ & $\mathbf{m}_6$ & $\mathbf{m}_7$\\
+\midrule
+Subj.\ 1, obs.\ 1  & 1 & 1 & $+1$ & 1 & 0 & 0 & 0 & 0 & 0\\
+Subj.\ 2, obs.\ 1  & 2 & 1 & $+1$ & 0 & 1 & 0 & 0 & 0 & 0\\
+Subj.\ 3, obs.\ 1  & 3 & 1 & $+1$ & 0 & 0 & 1 & 0 & 0 & 0\\
+Subj.\ 4, obs.\ 1  & 4 & 1 & $+1$ & 0 & 0 & 0 & 1 & 0 & 0\\
+Subj.\ 5, obs.\ 1  & 5 & 1 & $+1$ & 0 & 0 & 0 & 0 & 1 & 0\\
+Subj.\ 6, obs.\ 1  & 6 & 1 & $+1$ & 0 & 0 & 0 & 0 & 0 & 1\\
+Subj.\ 1, obs.\ 2  & 1 & 1 & $-1$ & 1 & 0 & 0 & 0 & 0 & 0\\
+Subj.\ 2, obs.\ 2  & 2 & 1 & $-1$ & 0 & 1 & 0 & 0 & 0 & 0\\ 
+Subj.\ 3, obs.\ 2  & 3 & 1 & $-1$ & 0 & 0 & 1 & 0 & 0 & 0\\ 
+Subj.\ 4, obs.\ 2  & 4 & 1 & $-1$ & 0 & 0 & 0 & 1 & 0 & 0\\
+Subj.\ 5, obs.\ 2  & 5 & 1 & $-1$ & 0 & 0 & 0 & 0 & 1 & 0\\
+Subj.\ 6, obs.\ 2  & 6 & 1 & $-1$ & 0 & 0 & 0 & 0 & 0 & 1\\
+\midrule
+Contrast 1 ($\mathbf{C}'_1$) & & & $+1$ & 0 & 0 & 0 & 0 & 0 & 0\\
+Contrast 2 ($\mathbf{C}'_2$) & & & $-1$ & 0 & 0 & 0 & 0 & 0 & 0\\
+\bottomrule
+\end{tabular}}
+\end{center}
+\label{tab:ex_pairedttest}
+\end{table}
+
+\paragraph{Example 4: Unequal group variances}  Consider a study using \textsc{fmri} to compare whether the \textsc{bold} response associated with a certain cognitive task would differ among subjects with autistic spectrum disorder (\textsc{asd}) and control subjects, while taking into account differences in age and sex. In this hypothetical example, the cognitive task is known to produce more erratic signal changes in the patient group than in controls. Therefore, variances cannot be assumed to be homogeneous with respect to the group assignment of subjects. This is an example of the classical Behrens--Fisher problem. To accommodate heteroscedasticity, two permutation blocks are defined according to the group of subjects. Under the assumption of independent and symmetric errors, the problem is solved by means of random sign-flipping \citep{Pesarin1995}, using the well known Welch's $v$ statistic, a particular case of the statistic $G$ shown in Equation~\ref{eqn:gstat} (Table~\ref{tab:ex_behrensfisher}).
+
+\begin{table}[!t]
+\caption[Coding for Example 4]{Coding of the design matrix and exchangebility blocks for \textbf{Example~4}. As the group variances cannot be assumed to be the same, each group constitutes an EB and VG; sign flippings happen within block. The regressors $\mathbf{m}_1$ and $\mathbf{m}_2$ code for the experimental groups, $\mathbf{m}_3$ and $\mathbf{m}_4$ for age and sex.}
+\begin{center}
+{\small
+\begin{tabular}{@{}lccrrrr@{}}
+\toprule
+\multirow{2}{*}{\vspace*{-1.7mm}Coded data ($\mathbf{Y}$)} & \multirow{2}{*}{\vspace*{-1.7mm}\textsc{eb}} & \multirow{2}{*}{\vspace*{-1.7mm}\textsc{vg}} & \multicolumn{4}{c}{Model ($\mathbf{M}$)\hspace*{-3mm}}\\
+\cmidrule(l){4-7}
+& & & $\mathbf{m}_1$ & $\mathbf{m}_2$ & $\mathbf{m}_3$ & $\mathbf{m}_4$\\
+\midrule
+Subject 1   & 1 & 1 & 1 & 0 & $a_{1}$  & $s_{1}$\\
+Subject 2   & 1 & 1 & 1 & 0 & $a_{2}$  & $s_{2}$\\
+Subject 3   & 1 & 1 & 1 & 0 & $a_{3}$  & $s_{3}$\\
+Subject 4   & 1 & 1 & 1 & 0 & $a_{4}$  & $s_{4}$\\
+Subject 5   & 1 & 1 & 1 & 0 & $a_{5}$  & $s_{5}$\\
+Subject 6   & 1 & 1 & 1 & 0 & $a_{6}$  & $s_{6}$\\
+Subject 7   & 2 & 2 & 0 & 1 & $a_{7}$  & $s_{7}$\\
+Subject 8   & 2 & 2 & 0 & 1 & $a_{8}$  & $s_{8}$\\
+Subject 9   & 2 & 2 & 0 & 1 & $a_{9}$  & $s_{9}$\\
+Subject 10  & 2 & 2 & 0 & 1 & $a_{10}$ & $s_{10}$\\
+Subject 11  & 2 & 2 & 0 & 1 & $a_{11}$ & $s_{11}$\\
+Subject 12  & 2 & 2 & 0 & 1 & $a_{12}$ & $s_{12}$\\
+\midrule
+Contrast 1 ($\mathbf{C}'_1$) & & & $+1$ & $-1$ & 0 & 0\\
+Contrast 2 ($\mathbf{C}'_2$) & & & $-1$ & $+1$ & 0 & 0\\
+\bottomrule
+\end{tabular}}
+\end{center}
+\label{tab:ex_behrensfisher}
+\end{table}
+
+\paragraph{Example 5: Variance as a confound} Consider a study using \textsc{fmri} to compare whether a given medication would modify the \textsc{bold} response associated with a certain attention task. The subjects are allocated in two groups, one receiving the drug, the other not. In this hypothetical example, the task is known to produce very robust and, on average, similar responses for male and female subjects, although it is also known that males tend to display more erratic signal changes, either very strong or very weak. Therefore, variances cannot be assumed to be homogeneous with respect to the sex of the subjects. To accommodate heteroscedasticity, two permutation blocks are defined according to sex, and each permutation matrix is constructed such that permutations only happen within each of these blocks (Table~\ref{tab:ex_variance}).
+
+\begin{table}[!t]
+\caption[Coding for Example 5]{Coding for \textbf{Example~5}. The different variances restrict exchangeability for within same sex only, and two exchangebility blocks are defined, for shuffling within block. The regressors $\mathbf{m}_1$ and $\mathbf{m}_2$ code for group (patients and controls), whereas $\mathbf{m}_3$ codes for sex.}
+\begin{center}
+{\small
+\begin{tabular}{@{}lccrrr@{}}
+\toprule
+\multirow{2}{*}{\vspace*{-1.7mm}Coded data ($\mathbf{Y}$)} & \multirow{2}{*}{\vspace*{-1.7mm}\textsc{eb}} & \multirow{2}{*}{\vspace*{-1.7mm}\textsc{vg}} & \multicolumn{3}{c}{Model ($\mathbf{M}$)\hspace*{-3mm}}\\
+\cmidrule(l){4-6}
+& & & $\mathbf{m}_1$ & $\mathbf{m}_2$ & $\mathbf{m}_3$\\
+\midrule
+Subject 1  & 1 & 1 & 1 & 0 & $1$\\
+Subject 2  & 1 & 1 & 1 & 0 & $1$\\
+Subject 3  & 1 & 1 & 1 & 0 & $1$\\
+Subject 4  & 2 & 2 & 1 & 0 & $-1$\\
+Subject 5  & 2 & 2 & 1 & 0 & $-1$\\
+Subject 6  & 2 & 2 & 1 & 0 & $-1$\\
+Subject 7  & 1 & 1 & 0 & 1 & $1$\\
+Subject 8  & 1 & 1 & 0 & 1 & $1$\\
+Subject 9  & 1 & 1 & 0 & 1 & $1$\\
+Subject 10 & 2 & 2 & 0 & 1 & $-1$\\
+Subject 11 & 2 & 2 & 0 & 1 & $-1$\\
+Subject 12 & 2 & 2 & 0 & 1 & $-1$\\
+\midrule
+Contrast 1 ($\mathbf{C}'_1$) & & & $1$ & $-1$ & 0\\
+Contrast 2 ($\mathbf{C}'_2$) & & & $-1$ & $1$ & 0\\
+\bottomrule
+\end{tabular}}
+\end{center}
+\label{tab:ex_variance}
+\end{table}
+
+\paragraph{Example 6: Longitudinal study} Consider a study to evaluate whether fractional anisoptropy (\textsc{fa}) would mature differently between boys and girls during middle childhood. Each child recruited to the study is examined three times, at the ages of 9, 10 and 11 years, and none of them are related in any known way. Permutation of observations within child cannot be considered, as the null hypothesis is not the one that \textsc{fa} itself would be zero, but instead, that there would be no changes in the value of \textsc{fa} along the three yearly observations. The permutations must, therefore, always keep in the same order the three observations. Blocks are defined as one per subject, each encompassing all the three observations, and permutation of each block as a whole is performed. If the variances cannot be assumed to be equal along time, one variance group can be defined per time point, otherwise all are assigned to the same \textsc{vg}. If there are nuisance variables to be considered, these can be included in the model and the procedure is performed using the same Freedman--Lane or Smith strategies (Table~\ref{tab:ex_longitudinal}).
+
+\begin{table}[!t]
+\caption[Coding for Example 6]{Coding of the design matrix, exchangebility blocks and variance groups for \textbf{Example~6}. Shufflings happen for the blocks as a whole, and variances are not assumed to be the same across all timepoints.}
+\begin{center}
+{\small
+\begin{tabular}{@{}lccrrrrrr@{}}
+\toprule
+\multirow{2}{*}{\vspace*{-1.7mm}Coded data ($\mathbf{Y}$)} & \multirow{2}{*}{\vspace*{-1.7mm}\textsc{eb}} & \multirow{2}{*}{\vspace*{-1.7mm}\textsc{vg}} & \multicolumn{6}{c}{Model ($\mathbf{M}$)\hspace*{-6mm}}\\
+\cmidrule(l){4-9}
+& & & $\mathbf{m}_1$ & $\mathbf{m}_2$ & $\mathbf{m}_3$ & $\mathbf{m}_4$ & $\mathbf{m}_5$ & $\mathbf{m}_6$\\
+\midrule
+Subject 1, Timepoint 1 & 1 & 1 & $a_{11}$ & 0 & 1 & 0 & 0 & 0\\
+Subject 1, Timepoint 2 & 1 & 2 & $a_{12}$ & 0 & 1 & 0 & 0 & 0\\
+Subject 1, Timepoint 3 & 1 & 3 & $a_{13}$ & 0 & 1 & 0 & 0 & 0\\
+Subject 2, Timepoint 1 & 2 & 1 & $a_{21}$ & 0 & 0 & 1 & 0 & 0\\
+Subject 2, Timepoint 2 & 2 & 2 & $a_{22}$ & 0 & 0 & 1 & 0 & 0\\
+Subject 2, Timepoint 3 & 2 & 3 & $a_{23}$ & 0 & 0 & 1 & 0 & 0\\
+Subject 3, Timepoint 1 & 3 & 1 & 0 & $a_{31}$ & 0 & 0 & 1 & 0\\
+Subject 3, Timepoint 2 & 3 & 2 & 0 & $a_{32}$ & 0 & 0 & 1 & 0\\
+Subject 3, Timepoint 3 & 3 & 3 & 0 & $a_{33}$ & 0 & 0 & 1 & 0\\
+Subject 4, Timepoint 1 & 4 & 1 & 0 & $a_{41}$ & 0 & 0 & 0 & 1\\
+Subject 4, Timepoint 2 & 4 & 2 & 0 & $a_{42}$ & 0 & 0 & 0 & 1\\
+Subject 4, Timepoint 3 & 4 & 3 & 0 & $a_{43}$ & 0 & 0 & 0 & 1\\
+\midrule
+Contrast 1 ($\mathbf{C}'_1$) & & & $1$ & $-1$ & 0 & 0 & 0 & 0\\
+Contrast 2 ($\mathbf{C}'_2$) & & & $-1$ & $1$ & 0 & 0 & 0 & 0\\
+\bottomrule
+\end{tabular}}
+\end{center}
+\label{tab:ex_longitudinal}
+\end{table}
 
 \section{Evaluation methods}
 
@@ -641,7 +845,6 @@ With respect to error type \textsc{i}, both $F$ and $G$ resulted in similar amou
 \label{tab:comparefg}
 \end{table}
 
-
 \subsection{Permutation strategies}
 \label{sec:results_perm}
 
@@ -673,7 +876,6 @@ Parametric       & 77.47\% & 14.84\% &  7.68\% & 72.73\%\\
 When the amount of errors is below the nominal level (here, $\alpha=0.05)$, the test is said to be \emph{conservative}. If above, it is \emph{invalid}.\par}
 \label{tab:summary}
 \end{table}
-
 
 \begin{table}[b!]
 \caption[Amount of error type \textsc{i} for representative simulation scenarios.]{\emph{(Page \pageref{tab:methods_resultsT})} Proportion of error type \textsc{i} (for $\alpha$ = 0.05), for some representative of the 768 simulation scenarios that did not have signal, using the different permutation methods, and with $G$ as the statistic in the absence of \textsc{eb} (so, equivalent to the $F$ statistic). Confidence intervals (95\%) are shown in parenthesis.}
@@ -775,211 +977,6 @@ It should be noted that the Still--White method, as implemented for these simula
 
 Finally, although non-parametric methods are generally considered less powerful than their parametric counterparts, we found in the simulations performed that most of the permutation methods are not substantially less powerful than the parametric method, and sometimes are even more powerful, even when the assumptions of the latter are met. With the availability of computing power and reliable software implementation, there is almost no reason for not using these permutation methods.
 
-\section{Worked examples}
-\label{sec:examples}
+\section{Conclusion}
 
-The examples below serve to illustrate the permutation aspects discussed in the paper, all with tiny samples, $N=12$ only, so that the design matrices can be shown in their full extent. While permutation tests in general remain valid even with such small samples, these examples are by no means to be understood as a recommendation for sample sizes. There are many reasons why larger samples are more appropriate (see \citet{Button2013} for a recent review), and in what concerns permutations methods, larger samples allow smaller p-values, improve the variance estimates for each \textsc{vg} (which are embodied in the weighting matrix under restricted exchangeability), and allow finer control over the familywise error rate. For each example, the relevant contrasts are also shown.
-
-\newpage
-\paragraph{Example 1: Mean effect} Consider a multi-subject \textsc{fmri} study to investigate the \textsc{bold} response associated with a novel experimental task. After the first-level analysis (within subject), maps of contrasts of parameter estimates for each subject are used in a second level analysis. The design matrix for the mean effect is simply a column of ones, and permutations of the data or of the design matrix do not change the model with respect to the regressor of interest. However, by treating the errors as symmetric, instead of permutation, the signs of the ones in the design matrix, or of each datapoint, can be flipped randomly to create the empirical distribution from which inference can be performed. In the presence of nuisance variables, such as handedness, the procedure is performed as in either the Freedman--Lane or Smith methods, replacing the permutation matrix for a sign flipping matrix (Table~\ref{tab:ex_meaneffect}).
-
-\begin{table}[!t]
-\caption[Coding for Example 1]{Coding of the design matrix, exchangeability blocks and variance groups for \textbf{Example~1}. Under unrestricted exchangeability, all subjects are assigned to a single block, and with identical variances, all to a single variance group. The regressor $\mathbf{m}_1$ codes for the overall mean, whereas $\mathbf{m}_2$ codes for handedness.}
-\begin{center}
-{\small
-\begin{tabular}{@{}lccrr@{}}
-\toprule
-\multirow{2}{*}{\vspace*{-1.7mm}Coded data ($\mathbf{Y}$)} & \multirow{2}{*}{\vspace*{-1.7mm}\textsc{eb}} & \multirow{2}{*}{\vspace*{-1.7mm}\textsc{vg}} & \multicolumn{2}{c}{Model ($\mathbf{M}$)\hspace*{-2mm}}\\
-\cmidrule(l){4-5}
-& & &  $\mathbf{m}_1$ & $\mathbf{m}_2$\\
-\midrule
-Subject 1  & 1 & 1 & 1 & $h_{1}$\\
-Subject 2  & 1 & 1 & 1 & $h_{2}$\\
-Subject 3  & 1 & 1 & 1 & $h_{3}$\\
-Subject 4  & 1 & 1 & 1 & $h_{4}$\\
-Subject 5  & 1 & 1 & 1 & $h_{5}$\\
-Subject 6  & 1 & 1 & 1 & $h_{6}$\\
-Subject 7  & 1 & 1 & 1 & $h_{7}$\\
-Subject 8  & 1 & 1 & 1 & $h_{8}$\\
-Subject 9  & 1 & 1 & 1 & $h_{9}$\\
-Subject 10 & 1 & 1 & 1 & $h_{10}$\\
-Subject 11 & 1 & 1 & 1 & $h_{11}$\\
-Subject 12 & 1 & 1 & 1 & $h_{12}$\\
-\midrule
-Contrast 1 ($\mathbf{C}'_1$) & & & $+1$ & 0\\
-Contrast 2 ($\mathbf{C}'_2$) & & & $-1$ & 0\\
-\bottomrule
-\end{tabular}}
-\end{center}
-\label{tab:ex_meaneffect}
-\end{table}
-
-\newpage
-\paragraph{Example 2: Multiple regression} Consider the analysis of a study that compares patients and controls with respect to brain cortical thickness, and that recruiting process ensured that all selected subjects are exchangeable. Elder subjects may, however, have thinner cortices, regardless of the diagnosis so, without considering the possibility of interaction. To control for the confounding effect of age, it is included in the design as a nuisance regressor. Sex is also included. The permutation strategy follows the Freedman--Lane or Smith methods, with the residuals of the reduced model being permuted under unrestricted exchangeability (Table~\ref{tab:ex_multipleregression}).
-
-\begin{table}[!t]
-\caption[Coding for Example 2]{Coding for \textbf{Example~2}. Under unrestricted exchangeability, all subjects are assigned to a single block. The regressors $\mathbf{m}_1$ and $\mathbf{m}_2$ code for the experimental groups, $\mathbf{m}_3$ and $\mathbf{m}_4$ for age and sex.}
-\begin{center}
-{\small
-\begin{tabular}{@{}lccrrrr@{}}
-\toprule
-\multirow{2}{*}{\vspace*{-1.7mm}Coded data ($\mathbf{Y}$)} & \multirow{2}{*}{\vspace*{-1.7mm}\textsc{eb}} & \multirow{2}{*}{\vspace*{-1.7mm}\textsc{vg}} & \multicolumn{4}{c}{Model ($\mathbf{M}$)\hspace*{-3mm}}\\
-\cmidrule(l){4-7}
-& & & $\mathbf{m}_1$ & $\mathbf{m}_2$ & $\mathbf{m}_3$ & $\mathbf{m}_4$\\
-\midrule
-Subject 1   & 1 & 1 & 1 & 0 & $a_{1}$  & $s_{1}$\\
-Subject 2   & 1 & 1 & 1 & 0 & $a_{2}$  & $s_{2}$\\
-Subject 3   & 1 & 1 & 1 & 0 & $a_{3}$  & $s_{3}$\\
-Subject 4   & 1 & 1 & 1 & 0 & $a_{4}$  & $s_{4}$\\
-Subject 5   & 1 & 1 & 1 & 0 & $a_{5}$  & $s_{5}$\\
-Subject 6   & 1 & 1 & 1 & 0 & $a_{6}$  & $s_{6}$\\
-Subject 7   & 1 & 1 & 0 & 1 & $a_{7}$  & $s_{7}$\\
-Subject 8   & 1 & 1 & 0 & 1 & $a_{8}$  & $s_{8}$\\
-Subject 9   & 1 & 1 & 0 & 1 & $a_{9}$  & $s_{9}$\\
-Subject 10  & 1 & 1 & 0 & 1 & $a_{10}$ & $s_{10}$\\
-Subject 11  & 1 & 1 & 0 & 1 & $a_{11}$ & $s_{11}$\\
-Subject 12  & 1 & 1 & 0 & 1 & $a_{12}$ & $s_{12}$\\
-\midrule
-Contrast 1 ($\mathbf{C}'_1$) & & & $+1$ & $-1$ & 0 & 0\\
-Contrast 2 ($\mathbf{C}'_2$) & & & $-1$ & $+1$ & 0 & 0\\
-\bottomrule
-\end{tabular}}
-\end{center}
-\label{tab:ex_multipleregression}
-\end{table}
-
-\newpage
-\paragraph{Example 3: Paired $t$-test} Consider a study to investigate the effect of the use of a certain analgesic in the magnitude of the \textsc{bold} response associated with painful stimulation. In this example, the response after the treatment is compared with the response before the treatment, i.e., each subject is their own control. The experimental design is the ``paired $t$-test''. One \textsc{eb} is defined per subject, as the observatios are not exchangeable across subjects, and as the variance can be assumed to be homogeneous across all observations, only one \textsc{vg} is defined encompassing all observations (Table~\ref{tab:ex_pairedttest}).
-
-\begin{table}[!t]
-\caption[Coding for Example 3]{Coding of the design matrix exchangebility blocks and variance groups for \textbf{Example~3}. Observations are exchangeable only within subject, and variance can be estimated considering all observations as a single group. The regressor $\mathbf{m}_1$ codes for treatment, whereas $\mathbf{m}_2$ to $\mathbf{m}_7$ code for subject-specific mean.}
-\begin{center}
-{\small
-\begin{tabular}{@{}lccrrrrrrr@{}}
-\toprule
-\multirow{2}{*}{\vspace*{-1.7mm}Coded data ($\mathbf{Y}$)} & \multirow{2}{*}{\vspace*{-1.7mm}\textsc{eb}} & \multirow{2}{*}{\vspace*{-1.7mm}\textsc{vg}} & \multicolumn{7}{c}{Model ($\mathbf{M}$)\hspace*{-3mm}}\\
-\cmidrule(l){4-10}
-& & & $\mathbf{m}_1$ & $\mathbf{m}_2$ & $\mathbf{m}_3$ & $\mathbf{m}_4$& $\mathbf{m}_5$ & $\mathbf{m}_6$ & $\mathbf{m}_7$\\
-\midrule
-Subj.\ 1, obs.\ 1  & 1 & 1 & $+1$ & 1 & 0 & 0 & 0 & 0 & 0\\
-Subj.\ 2, obs.\ 1  & 2 & 1 & $+1$ & 0 & 1 & 0 & 0 & 0 & 0\\
-Subj.\ 3, obs.\ 1  & 3 & 1 & $+1$ & 0 & 0 & 1 & 0 & 0 & 0\\
-Subj.\ 4, obs.\ 1  & 4 & 1 & $+1$ & 0 & 0 & 0 & 1 & 0 & 0\\
-Subj.\ 5, obs.\ 1  & 5 & 1 & $+1$ & 0 & 0 & 0 & 0 & 1 & 0\\
-Subj.\ 6, obs.\ 1  & 6 & 1 & $+1$ & 0 & 0 & 0 & 0 & 0 & 1\\
-Subj.\ 1, obs.\ 2  & 1 & 1 & $-1$ & 1 & 0 & 0 & 0 & 0 & 0\\
-Subj.\ 2, obs.\ 2  & 2 & 1 & $-1$ & 0 & 1 & 0 & 0 & 0 & 0\\ 
-Subj.\ 3, obs.\ 2  & 3 & 1 & $-1$ & 0 & 0 & 1 & 0 & 0 & 0\\ 
-Subj.\ 4, obs.\ 2  & 4 & 1 & $-1$ & 0 & 0 & 0 & 1 & 0 & 0\\
-Subj.\ 5, obs.\ 2  & 5 & 1 & $-1$ & 0 & 0 & 0 & 0 & 1 & 0\\
-Subj.\ 6, obs.\ 2  & 6 & 1 & $-1$ & 0 & 0 & 0 & 0 & 0 & 1\\
-\midrule
-Contrast 1 ($\mathbf{C}'_1$) & & & $+1$ & 0 & 0 & 0 & 0 & 0 & 0\\
-Contrast 2 ($\mathbf{C}'_2$) & & & $-1$ & 0 & 0 & 0 & 0 & 0 & 0\\
-\bottomrule
-\end{tabular}}
-\end{center}
-\label{tab:ex_pairedttest}
-\end{table}
-
-\newpage
-\paragraph{Example 4: Unequal group variances}  Consider a study using \textsc{fmri} to compare whether the \textsc{bold} response associated with a certain cognitive task would differ among subjects with autistic spectrum disorder (\textsc{asd}) and control subjects, while taking into account differences in age and sex. In this hypothetical example, the cognitive task is known to produce more erratic signal changes in the patient group than in controls. Therefore, variances cannot be assumed to be homogeneous with respect to the group assignment of subjects. This is an example of the classical Behrens--Fisher problem. To accommodate heteroscedasticity, two permutation blocks are defined according to the group of subjects. Under the assumption of independent and symmetric errors, the problem is solved by means of random sign-flipping \citep{Pesarin1995}, using the well known Welch's $v$ statistic, a particular case of the statistic $G$ shown in Equation~\ref{eqn:gstat} (Table~\ref{tab:ex_behrensfisher}).
-
-\begin{table}[!t]
-\caption[Coding for Example 4]{Coding of the design matrix and exchangebility blocks for \textbf{Example~4}. As the group variances cannot be assumed to be the same, each group constitutes an EB and VG; sign flippings happen within block. The regressors $\mathbf{m}_1$ and $\mathbf{m}_2$ code for the experimental groups, $\mathbf{m}_3$ and $\mathbf{m}_4$ for age and sex.}
-\begin{center}
-{\small
-\begin{tabular}{@{}lccrrrr@{}}
-\toprule
-\multirow{2}{*}{\vspace*{-1.7mm}Coded data ($\mathbf{Y}$)} & \multirow{2}{*}{\vspace*{-1.7mm}\textsc{eb}} & \multirow{2}{*}{\vspace*{-1.7mm}\textsc{vg}} & \multicolumn{4}{c}{Model ($\mathbf{M}$)\hspace*{-3mm}}\\
-\cmidrule(l){4-7}
-& & & $\mathbf{m}_1$ & $\mathbf{m}_2$ & $\mathbf{m}_3$ & $\mathbf{m}_4$\\
-\midrule
-Subject 1   & 1 & 1 & 1 & 0 & $a_{1}$  & $s_{1}$\\
-Subject 2   & 1 & 1 & 1 & 0 & $a_{2}$  & $s_{2}$\\
-Subject 3   & 1 & 1 & 1 & 0 & $a_{3}$  & $s_{3}$\\
-Subject 4   & 1 & 1 & 1 & 0 & $a_{4}$  & $s_{4}$\\
-Subject 5   & 1 & 1 & 1 & 0 & $a_{5}$  & $s_{5}$\\
-Subject 6   & 1 & 1 & 1 & 0 & $a_{6}$  & $s_{6}$\\
-Subject 7   & 2 & 2 & 0 & 1 & $a_{7}$  & $s_{7}$\\
-Subject 8   & 2 & 2 & 0 & 1 & $a_{8}$  & $s_{8}$\\
-Subject 9   & 2 & 2 & 0 & 1 & $a_{9}$  & $s_{9}$\\
-Subject 10  & 2 & 2 & 0 & 1 & $a_{10}$ & $s_{10}$\\
-Subject 11  & 2 & 2 & 0 & 1 & $a_{11}$ & $s_{11}$\\
-Subject 12  & 2 & 2 & 0 & 1 & $a_{12}$ & $s_{12}$\\
-\midrule
-Contrast 1 ($\mathbf{C}'_1$) & & & $+1$ & $-1$ & 0 & 0\\
-Contrast 2 ($\mathbf{C}'_2$) & & & $-1$ & $+1$ & 0 & 0\\
-\bottomrule
-\end{tabular}}
-\end{center}
-\label{tab:ex_behrensfisher}
-\end{table}
-
-\newpage
-\paragraph{Example 5: Variance as a confound} Consider a study using \textsc{fmri} to compare whether a given medication would modify the \textsc{bold} response associated with a certain attention task. The subjects are allocated in two groups, one receiving the drug, the other not. In this hypothetical example, the task is known to produce very robust and, on average, similar responses for male and female subjects, although it is also known that males tend to display more erratic signal changes, either very strong or very weak. Therefore, variances cannot be assumed to be homogeneous with respect to the sex of the subjects. To accommodate heteroscedasticity, two permutation blocks are defined according to sex, and each permutation matrix is constructed such that permutations only happen within each of these blocks (Table~\ref{tab:ex_variance}).
-
-\begin{table}[!t]
-\caption[Coding for Example 5]{Coding for \textbf{Example~5}. The different variances restrict exchangeability for within same sex only, and two exchangebility blocks are defined, for shuffling within block. The regressors $\mathbf{m}_1$ and $\mathbf{m}_2$ code for group (patients and controls), whereas $\mathbf{m}_3$ codes for sex.}
-\begin{center}
-{\small
-\begin{tabular}{@{}lccrrr@{}}
-\toprule
-\multirow{2}{*}{\vspace*{-1.7mm}Coded data ($\mathbf{Y}$)} & \multirow{2}{*}{\vspace*{-1.7mm}\textsc{eb}} & \multirow{2}{*}{\vspace*{-1.7mm}\textsc{vg}} & \multicolumn{3}{c}{Model ($\mathbf{M}$)\hspace*{-3mm}}\\
-\cmidrule(l){4-6}
-& & & $\mathbf{m}_1$ & $\mathbf{m}_2$ & $\mathbf{m}_3$\\
-\midrule
-Subject 1  & 1 & 1 & 1 & 0 & $1$\\
-Subject 2  & 1 & 1 & 1 & 0 & $1$\\
-Subject 3  & 1 & 1 & 1 & 0 & $1$\\
-Subject 4  & 2 & 2 & 1 & 0 & $-1$\\
-Subject 5  & 2 & 2 & 1 & 0 & $-1$\\
-Subject 6  & 2 & 2 & 1 & 0 & $-1$\\
-Subject 7  & 1 & 1 & 0 & 1 & $1$\\
-Subject 8  & 1 & 1 & 0 & 1 & $1$\\
-Subject 9  & 1 & 1 & 0 & 1 & $1$\\
-Subject 10 & 2 & 2 & 0 & 1 & $-1$\\
-Subject 11 & 2 & 2 & 0 & 1 & $-1$\\
-Subject 12 & 2 & 2 & 0 & 1 & $-1$\\
-\midrule
-Contrast 1 ($\mathbf{C}'_1$) & & & $1$ & $-1$ & 0\\
-Contrast 2 ($\mathbf{C}'_2$) & & & $-1$ & $1$ & 0\\
-\bottomrule
-\end{tabular}}
-\end{center}
-\label{tab:ex_variance}
-\end{table}
-
-\newpage
-\paragraph{Example 6: Longitudinal study} Consider a study to evaluate whether fractional anisoptropy (\textsc{fa}) would mature differently between boys and girls during middle childhood. Each child recruited to the study is examined three times, at the ages of 9, 10 and 11 years, and none of them are related in any known way. Permutation of observations within child cannot be considered, as the null hypothesis is not the one that \textsc{fa} itself would be zero, but instead, that there would be no changes in the value of \textsc{fa} along the three yearly observations. The permutations must, therefore, always keep in the same order the three observations. Blocks are defined as one per subject, each encompassing all the three observations, and permutation of each block as a whole is performed. If the variances cannot be assumed to be equal along time, one variance group can be defined per time point, otherwise all are assigned to the same \textsc{vg}. If there are nuisance variables to be considered, these can be included in the model and the procedure is performed using the same Freedman--Lane or Smith strategies (Table~\ref{tab:ex_longitudinal}).
-
-\begin{table}[!t]
-\caption[Coding for Example 6]{Coding of the design matrix, exchangebility blocks and variance groups for \textbf{Example~6}. Shufflings happen for the blocks as a whole, and variances are not assumed to be the same across all timepoints.}
-\begin{center}
-{\small
-\begin{tabular}{@{}lccrrrrrr@{}}
-\toprule
-\multirow{2}{*}{\vspace*{-1.7mm}Coded data ($\mathbf{Y}$)} & \multirow{2}{*}{\vspace*{-1.7mm}\textsc{eb}} & \multirow{2}{*}{\vspace*{-1.7mm}\textsc{vg}} & \multicolumn{6}{c}{Model ($\mathbf{M}$)\hspace*{-6mm}}\\
-\cmidrule(l){4-9}
-& & & $\mathbf{m}_1$ & $\mathbf{m}_2$ & $\mathbf{m}_3$ & $\mathbf{m}_4$ & $\mathbf{m}_5$ & $\mathbf{m}_6$\\
-\midrule
-Subject 1, Timepoint 1 & 1 & 1 & $a_{11}$ & 0 & 1 & 0 & 0 & 0\\
-Subject 1, Timepoint 2 & 1 & 2 & $a_{12}$ & 0 & 1 & 0 & 0 & 0\\
-Subject 1, Timepoint 3 & 1 & 3 & $a_{13}$ & 0 & 1 & 0 & 0 & 0\\
-Subject 2, Timepoint 1 & 2 & 1 & $a_{21}$ & 0 & 0 & 1 & 0 & 0\\
-Subject 2, Timepoint 2 & 2 & 2 & $a_{22}$ & 0 & 0 & 1 & 0 & 0\\
-Subject 2, Timepoint 3 & 2 & 3 & $a_{23}$ & 0 & 0 & 1 & 0 & 0\\
-Subject 3, Timepoint 1 & 3 & 1 & 0 & $a_{31}$ & 0 & 0 & 1 & 0\\
-Subject 3, Timepoint 2 & 3 & 2 & 0 & $a_{32}$ & 0 & 0 & 1 & 0\\
-Subject 3, Timepoint 3 & 3 & 3 & 0 & $a_{33}$ & 0 & 0 & 1 & 0\\
-Subject 4, Timepoint 1 & 4 & 1 & 0 & $a_{41}$ & 0 & 0 & 0 & 1\\
-Subject 4, Timepoint 2 & 4 & 2 & 0 & $a_{42}$ & 0 & 0 & 0 & 1\\
-Subject 4, Timepoint 3 & 4 & 3 & 0 & $a_{43}$ & 0 & 0 & 0 & 1\\
-\midrule
-Contrast 1 ($\mathbf{C}'_1$) & & & $1$ & $-1$ & 0 & 0 & 0 & 0\\
-Contrast 2 ($\mathbf{C}'_2$) & & & $-1$ & $1$ & 0 & 0 & 0 & 0\\
-\bottomrule
-\end{tabular}}
-\end{center}
-\label{tab:ex_longitudinal}
-\end{table}
+We presented a generic framework that allows permutation inference using the general linear model with experimental designs of arbitrary complexity, and which depends only on the weak requirements of exchangeable or independent and symmetric errors, which define permutations, sign flippings, or both. Structured dependence between observations is addressed through the definition of exchangeability blocks. We also proposed a statistic that is robust to heteroscedasticity, can be used for multiple-testing correction, and can be implemented easily with matrix operations. Based on evaluations, we recommend the Freedman--Lane and the Smith methods to construct the empirical distribution, and use Freedman--Lane in the \texttt{randomise} algorithm (\ref{sec:randomise}).
