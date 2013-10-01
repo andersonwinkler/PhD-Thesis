@@ -1,7 +1,7 @@
 \documentclass[a4paper,twoside,12pt]{report}
 
 % Load packages
-\usepackage[utf8x]{inputenc}
+% \usepackage[utf8x]{inputenc}
 \usepackage[UKenglish]{babel}
 \usepackage[round]{natbib}             % commands \citep e \citet for natural citations
 \usepackage{nextpage}                  % blank pages with \cleartooddpage
@@ -15,13 +15,13 @@
 \usepackage{multirow}
 \usepackage{pifont}
 \usepackage{textcomp}
-\usepackage[plain,chapter]{algorithm}  % for the algorithm environment
+%\usepackage[plain,chapter]{algorithm}  % for the algorithm environment
 \usepackage{algpseudocode}             % for the algorithm pseudocode
 \usepackage{setspace}                  % command \setstretch for line spacing on the text only
 \usepackage[figuresright]{rotating}    % environment sidewaystable
 
 % Temporary packages for testing
-\usepackage{graphicx}              % comment this out with XeLaTeX, but keep with pdfLaTeX
+% \usepackage{graphicx}              % comment this out with XeLaTeX, but keep with pdfLaTeX
 % \usepackage{lipsum}                % Lorem ipsum
 
 % Use XeLaTeX and set fonts
@@ -95,26 +95,26 @@
 \setcounter{tocdepth}{3}
 
 % For the title page
-\title{New Strategies for Permutation Methods in Brain Imaging}
+\title{New Strategies for Permutation\\Methods in Brain Imaging}
 \author{Anderson M. Winkler}
 
 \begin{document}
 \maketitle
-\bibliographystyle{scabbrvnat}
+\bibliographystyle{latex/scabbrvnat}
 
 \pagestyle{fancy}
 \setstretch{\lspac}
 \blankpage \tableofcontents
 \blankpage \listoffigures
 \blankpage \listoftables
-\blankpage \listofalgorithms
+% \blankpage \listofalgorithms
 \setstretch{1}
 \blankpage \include{10intro}
 \blankpage \include{20permutation}
 \blankpage \include{30combination}
 \blankpage \appendix
-\renewcommand{\appendixname}{aaa}
-\blankpage \include{80terms}
+% \renewcommand{\appendixname}{aaa}
+% \blankpage \include{80terms}
 \blankpage \bibliography{refs}
 
 \end{document}          

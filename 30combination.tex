@@ -2,7 +2,6 @@
 \label{sec:combination}
 \setstretch{\lspac}
 
-
 \section{Parametric combination strategies}
 
 Consider $K$ independent tests, $k=\{1$, $\ldots$, $K\}$, with their respective $p$-values $p_{k}$. These tests can also be called \emph{partial tests} \citep{Pesarin2010}, and each can, individually, be declared significant or not at certain level $\alpha$. For each combining method, an overall statistic $T_{\text{(method)}}$ can be obtained, from which a $p$-value, $P_{\text{(method)}}$, can be computed to reject or not, at a given significance level $\gamma$, the \emph{global null hypothesis}\footnote{Also called \emph{conjunction of null hypotheses} \citep{Benjamini2008}.} that there is no effect for all partial tests. Note that we denote $\gamma$ the significance level for the global null hypothesis, and $\alpha$ the significance level for each of the $K$ partial tests. Here we consider the same significance level $\alpha$ for all of the partial tests, although some methods permit the use of a different $\alpha$ for each.
@@ -10,7 +9,7 @@ Consider $K$ independent tests, $k=\{1$, $\ldots$, $K\}$, with their respective 
 A list of these methods is presented below in chronological order and summarised in Table~\ref{tab:comparisonC}. All these methods could be termed as ``non-parametric'' for not depending on the underlying distribution of the data for the original tests, only on their $p$-values, although most are still ``parametric'' in the sense that most have a known asymptotic distribution for their respective statistic $T_{\text{(method)}}$ if certain assumptions are met for each case. As a rule of thumb, all these methods work if the tests are independent, whereas some are robust to a certain degree of non-independence, even if independence was assumed during their derivation.
 
 \begin{table}[b!]
-\caption{\emph{(Page \pageref{tab:comparisonT})} Several methods are available to combine inference from multiple tests.}
+\caption[Summary of different combining functions.]{\emph{(Page \pageref{tab:comparisonT})} Several methods are available to combine inference from multiple tests.}
 {\footnotesize In the table, $T$ is the statistic for each corresponding method and $P$ its significance, i.e.\ the probability by chance of a statistic as extreme as $T$ or higher for each method.
 The respective null hypothesis (global null or conjunction null) is rejected if $P \leqslant \gamma$.
 All methods are shown as function of the partial $p$-values, $p_{k}$. However, for certain methods, the test statistic from the partial tests, if available, can be used directly (e.g. Stouffer, Winer).
@@ -105,6 +104,7 @@ Jiang &
 $\frac{1}{K} \sum_{k=1}^{K} I\left(p_{(k)}\leqslant \alpha \right)\left(1-p_{(k)}\frac{K+1}{k}\right)$ &
 Computed through Monte Carlo methods.\\
 \bottomrule
+\multicolumn{3}{l}{\emph{See caption on page \pageref{tab:comparisonC}.}}
 \end{tabular}}
 \end{center}
 \end{sidewaystable}
