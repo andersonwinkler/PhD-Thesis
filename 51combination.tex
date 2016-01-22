@@ -1,4 +1,4 @@
-\chapter{Combination inference}
+\chapter{Combined inference}
 \label{sec:comb:combination}
 \setstretch{\lspac}
 
@@ -31,7 +31,7 @@ In this paper we show that permutation tests can provide a common solution to se
 
 Because in neuroimaging one statistical test is typically performed at each of many thousands of imaging units (e.g., voxels or vertices), the problems related to such multiplicity of tests were recognised almost as early as these techniques were developed \citep[for pioneering examples, see][]{Fox1988, Friston1991}. There is now a comprehensive body of literature on multiple testing correction methods that include those based on the random field theory, on permutation tests, as well as on other strategies that control the familywise error rate (\textsc{fwer}) or the false discovery rate (\textsc{fdr}) \citep[for reviews, see][]{Nichols2003, Nichols2012}. However, the multiplicity of tests in neuroimaging can appear in other ways that are less explicit, and most importantly, that have not been fully appreciated or made available in software packages. In the context of the general linear model \citep[\textsc{glm},][]{Scheffe1959}, these \emph{other} multiple tests include:
 
-\renewcommand{\theenumi}{\textsc{\alph{enumi}.}}
+\renewcommand{\theenumi}{\textsc{\alph{enumi}}}
 \begin{enumerate}[leftmargin=*]
 \item \emph{Multiple hypotheses in the same model:} Testing more than one hypothesis regarding a set of explanatory variables. An example is testing the effects of multiple variables, such as presence of a disease along with its duration, some clinical score, age and/or sex of the subjects, on a given imaging measurement, such as maps from functional magnetic resonance imaging (\textsc{fmri}) experiments.
 \item \emph{Multiple pairwise group comparisons:} Often an initial global (omnibus) test is performed, such as an $F$-test in the context of analysis of variance (\textsc{anova}), and if this test is significant, subsequent (post hoc) tests are performed to verify which pairwise difference(s) drove the global result, thus introducing a multiple comparisons problem.
@@ -50,12 +50,12 @@ We call the multiple tests that arise in situations as those listed above ``mult
 \subsection{Combination of imaging modalities}
 \label{sec:comb:fusion}
 
-Acquisition of multiple imaging modalities on the same subjects can allow the examination of more complex hypotheses about physiological processes, and has potential to increase power to detect group differences. Such combination of modalities can refer strictly to data acquired from different instruments (e.g., \textsc{mri}, \textsc{pet}, \textsc{eeg}), or more broadly, to data acquired from the same instrument using different acquisition parameters (e.g., different \textsc{mri} sequences, different \textsc{pet} ligands); for an overview, see \citet{Uludag2014,Zhu2014}, and for example applications, see \citet{Hayasaka2006, Thomas2015}. Irrespective of which the modalities are, the options in the context of the \textsc{glm} rest in testing for a single multivariate hypothesis, or in testing for a combination of multiple univariate hypotheses. Single multivariate tests encompass various classical tests, known in particular cases as multivariate analysis of variance (\textsc{manova}), multivariate analysis of covariance (\textsc{mancova}), or canonical correlation/variates analysis (\textsc{cca}/\textsc{cva}); these tests will be referred here as \emph{classical multivariate tests}, or \textsc{cmv}.
+Acquisition of multiple imaging modalities on the same subjects can allow the examination of more complex hypotheses about physiological processes, and has potential to increase power to detect group differences. Such combination of modalities can refer strictly to data acquired from different instruments (e.g., \textsc{mri}, \textsc{pet}, \textsc{eeg}), or more broadly, to data acquired from the same instrument using different acquisition parameters (e.g., different \textsc{mri} sequences, different \textsc{pet} ligands); for an overview, see \citet{Uludag2014,Zhu2014,Calhoun2016}, and for example applications, see \citet{Hayasaka2006, Thomas2016}. Irrespective of which the modalities are, the options in the context of the \textsc{glm} rest in testing for a single multivariate hypothesis, or in testing for a combination of multiple univariate hypotheses. Single multivariate tests encompass various classical tests, known in particular cases as multivariate analysis of variance (\textsc{manova}), multivariate analysis of covariance (\textsc{mancova}), or canonical correlation/variates analysis (\textsc{cca}/\textsc{cva}); these tests will be referred here as \emph{classical multivariate tests}, or \textsc{cmv}.
 
 The combination of multiple univariate hypotheses requires that each is analysed separately, and that these results are grouped together to test, at each voxel (or vertex, or face) a \emph{joint null hypothesis} (\textsc{jnh}); in this context, the separate tests are termed \emph{partial tests}. Different criteria to decide upon rejection of the \textsc{jnh} give rise to three broad categories of combined tests: (\textsc{i}) reject if \emph{any} partial test is significant; (\textsc{ii}) reject if \emph{all} partial tests are significant; and (\textsc{iii}) reject if some \emph{aggregate measure} from the partial tests is significant. The first of these can be traced back to \citet{Tippett1931}, and in current terminology, could be defined as rejecting the joint null hypothesis if any partial test is rejected at the \textsc{fwer} level using the \v{S}id\'{a}k correction \citep{Sidak1967}; it also corresponds to a \emph{union--intersection test} \citep[\textsc{uit},][]{Roy1953}. The second is the \emph{intersection--union test} \citep[\textsc{iut},][]{Berger1982}, that in neuroimaging came to be known as \emph{conjunction test} \citep{Nichols2005}. The third offers a trade-off between the two other approaches, and gives rise to a large number of possible tests, each with a different rejection region, and therefore with different sensitivity and specificity profiles; some of these tests are popular in meta-analyses, with the method of Fisher \citep{Fisher1932} being one of the most popular, and new approaches are continually being developed. A summary is shown in Table~\ref{tab:comparison}, and a brief overview of these and yet other tests, along with bibliographic information, is in \ref{sec:comb:review}.
 
 \begin{table}[!b]
-\caption{\emph{(page \pageref{tab:comparison_noref})} Various functions are available for joint inference on multiple tests. For each method, both its statistic ($T$) and associated p-value, $P$ are shown. These p-values are only valid if, for each method, certain assumptions are met, particularly with respect to the independence between tests, but sometimes also with respect to underlying distributions. Under exchangeability, the p-values can be computed using permutation tests, and the formul\ae{} in the last column are no longer necessary. The tests are shown in chronological order; see \ref{sec:comb:review} for details and bibliographic information. In the table, 
+\caption[Summary of various combining functions]{\emph{(page \pageref{tab:comparison_noref})} Various functions are available for joint inference on multiple tests. For each method, both its statistic ($T$) and associated p-value, $P$ are shown. These p-values are only valid if, for each method, certain assumptions are met, particularly with respect to the independence between tests, but sometimes also with respect to underlying distributions. Under exchangeability, the p-values can be computed using permutation tests, and the formul\ae{} in the last column are no longer necessary. The tests are shown in chronological order; see \ref{sec:comb:review} for details and bibliographic information. In the table, 
 $T$ is the statistic for each method and $P$ its asymptotic p-value. All methods are shown as function of the p-values for the partial tests. For certain methods, however, the test statistic for the partial tests, if available, can be used directly.
 $K$ is the number of tests being combined,
 $p_{k}$, $k=\left\{1,2,\ldots,K\right\}$ are the partial p-values,
@@ -144,6 +144,7 @@ Jiang et al.\ (\textsc{tts}) &
 $\frac{1}{K} \sum_{k=1}^{K} I\left(p_{(k)}\leqslant \alpha \right)\left(1-p_{(k)}\frac{K+1}{k}\right)$ &
 Computed through Monte Carlo methods.\\
 \bottomrule
+\multicolumn{3}{l}{\emph{See caption on page \pageref{tab:comparison}.}}
 \end{tabular}}
 \end{center}
 \label{tab:comparison_noref}
@@ -161,6 +162,7 @@ In the next section we outline the notation used throughout the paper. We then u
 \section{Theory}
 
 \subsection{History}
+\label{sec:comb:history}
 
 Historically, as in the case of the permutation tests discussed in Chapter~\ref{sec:comb:permglm}, Ronald A.\ Fisher was among the first to propose such joint analysis of various tests. In the fourth edition of his now classical book \textit{Statistical Methods for Research Workers} \citep{Fisher1932}, his approach was described rather succinctly:
 
@@ -213,12 +215,12 @@ An intersection--union test \citep[\textsc{iut},][]{Berger1982} considers the \t
 \begin{center}
 \centerline{\includegraphics[scale=1.2]{images/uit_iut.eps}}
 \end{center}
-\caption{\emph{(a)} Rejection region of a union--intersection test (\textsc{uit}) based on two independent $t$-tests. The null is rejected if either of the partial tests has a statistic that is large enough to be qualified as significant. \emph{(b)} Rejection region of an intersection--union test (\textsc{iut}) based the same tests. The null is rejected if both the partial tests have a statistic is large enough to be qualified as significant.}
+\caption[Rejection regions for union--intersection and intersection--union tests.]{\emph{(a)} Rejection region of a union--intersection test (\textsc{uit}) based on two independent $t$-tests. The null is rejected if either of the partial tests has a statistic that is large enough to be qualified as significant. \emph{(b)} Rejection region of an intersection--union test (\textsc{iut}) based the same tests. The null is rejected if both the partial tests have a statistic is large enough to be qualified as significant.}
 \label{fig:uit+iut}
 \end{figure}
 
 \begin{table}[!t]
-\caption{Joint hypotheses tested with union--intersection and intersection--union of $K$ partial tests. In the \textsc{uit}, the null is also called \emph{global null hypothesis}, whereas in the \textsc{iut}, the null is also called \emph{conjunction null hypothesis}.}
+\caption[Joint hypotheses of \textsc{uit} and \textsc{iut}.]{Joint hypotheses tested with union--intersection and intersection--union of $K$ partial tests. In the \textsc{uit}, the null is also called \emph{global null hypothesis}, whereas in the \textsc{iut}, the null is also called \emph{conjunction null hypothesis}.}
 \begin{center}
 {\small
 \begin{tabular}{@{}m{50mm}<{\raggedright}@{}m{30mm}<{\centering}m{30mm}<{\centering}@{}}
@@ -250,13 +252,15 @@ A \textsc{ctp} guarantees strong control over \textsc{fwer} \citep{Marcus1976}. 
 \subsection{Non-parametric combination}
 \label{sec:comb:npc}
 
-The \textsc{npc} consists of testing each of the $\mathcal{H}^0_k$ using shufflings that are performed synchronously for all $K$ partial tests. The resulting statistics for each permutation are recorded, allowing an estimate of the complete empirical null distribution to be constructed for each partial test. In a second stage, the empirical p-values for each statistic are combined, for each permutation, into a \emph{joint statistic}. As such a combined joint statistic is produced from the previous permutations, an estimate of its empirical distribution function is immediately known, and so the p-value of the unpermuted statistic, hence of the joint test, can be assessed. The method was proposed by \citet{Pesarin1990, Pesarin1992}, and independently, though less generically, by \citet{Blair1994}; a thorough description is available in \citet{Pesarin2001} and \citet{Pesarin2010}. An early application to brain imaging can be found in \citet{Hayasaka2006}, its use to combine different statistics within the same modality in \citet{Hayasaka2004}, and a summary description and practical examples are presented in \citet{Brombin2013}. The \textsc{jnh} of the combined test is that all partial null hypotheses are true, and the alternative that any is false, which is the same null of a \textsc{uit}, although the rejection region may differ widely from the example in Figure~\ref{fig:uit+iut}\emph{a}, depending on the combining function.
+The \textsc{npc} consists of testing each of the $\mathcal{H}^0_k$ using shufflings that are performed synchronously for all $K$ partial tests. The resulting statistics for each permutation are recorded, allowing an estimate of the complete empirical null distribution to be constructed for each partial test. In a second stage, the empirical p-values for each statistic are combined, for each permutation, into a \emph{joint statistic}. As such a combined joint statistic is produced from the previous permutations, an estimate of its empirical distribution function is immediately known, and so the p-value of the unpermuted statistic, hence of the joint test, can be assessed. The method was proposed by \citet{Pesarin1990, Pesarin1992}, and independently, though less generically, by \citet{Blair1994}; a thorough description is available in \citet{Pesarin2001} and \citet{Pesarin2010}. An early application to brain imaging can be found in \citet{Hayasaka2006}, its use to combine different statistics within the same modality in \citet{hayasaka2004_combining}, and a summary description and practical examples are presented in \citet{Brombin2013}. The \textsc{jnh} of the combined test is that all partial null hypotheses are true, and the alternative that any is false, which is the same null of a \textsc{uit}, although the rejection region may differ widely from the example in Figure~\ref{fig:uit+iut}\emph{a}, depending on the combining function.
 
 The only two requirements for the validity of the \textsc{npc} are that the partial test statistics have the same direction suggesting the rejection of the null hypothesis, and that they are consistent (see \ref{sec:comb:consistency}). For the combining function, it is desirable that (\textsc{i}) it is non-decreasing with respect to all its arguments (which are the p-values $p_k$, or $1-p_k$, depending on the combining function), (\textsc{ii}) that it approaches its maximum (or minimum, depending on the function) when at least one of the partial tests approaches maximum significance (that is, when at least one p-value approaches zero), and (\textsc{iii}) that for a test level $\alpha > 0$, the critical significance threshold is smaller than the function maximum value. These requirements are easily satisfied by almost all functions shown in Table~\ref{tab:comparison}, which therefore can be used as combining functions in the framework of \textsc{npc} (see \ref{sec:comb:consistency} for a discussion on the few exceptions).
 
 One of the most remarkable features of \textsc{npc} is that the synchronised permutations implicitly account for the dependence structure among the partial tests. This means that even combining methods originally derived under an assumption of independence, such as Tippett or Fisher, can be used even when independence is untenable. In fact, modifications to these procedures to account for non-independence \citep[e.g.,][for the Fisher method]{Brown1975, Kost2002} are made redundant. As the p-values are assessed via permutations, distributional restrictions are likewise not necessary, rendering the \textsc{npc} free of most assumptions that thwart parametric methods in general. This is why \textsc{npc} methods are an alternative to \textsc{cmv} tests, as each of the response variables in a \textsc{manova} or \textsc{mancova} analysis can be seen as an univariate partial test in the context of the combination.
 
 \subsection{Overview of combining functions}
+
+Below are a few details and references for the methods shown in Table~\ref{tab:comparison}, plus a few others, presented in chronological order. A number of studies comparing some of these functions in various scenarios have been published \citep{Birnbaum1954, vanZwet1967, Oosterhoff1969, Rosenthal1978, Berk1979, Westberg1985, Lazar2002, Loughin2004, Whitlock2005, Wu2006, Won2009, Bhandary2011, Chen2011_evo, Zaykin2011, Chang2013}. Some of these are permutationally equivalent to each other, that is, their rejection region under permutation is the same, and it becomes immaterial which is chosen.
 
 \paragraph{Tippett} This is the oldest and probably the simplest of the combination methods, having appeared in \citet{Tippett1931}. The combined test statistic is simply the minimum p-value across all partial tests, i.e. $T_{\text{Tippett}} =$ $\min_{k} \left(p_{k}\right)$. The probability is computed as $P_{\text{Tippett}} = 1-\left(1-T_{\text{Tippett}}\right)^{K}$.
 
@@ -313,43 +317,11 @@ Transformation of the statistic to produce quantities that can be used in place 
 \begin{center}
 \centerline{\includegraphics[scale=.8]{images/flowchart.eps}}
 \end{center}
-\caption{The original \textsc{npc} algorithm combines non-parametric p-values and, for imaging applications, requires substantial amount of data storage space. Two modifications simplify the procedures: (\textsc{i}) the statistic $t_k$ for each partial test $k$ is transformed into a related quantity $u_k$ that has a behaviour similar to the p-values, and (\textsc{ii}) the combined statistic is transformed to a variable that follows approximately a normal distribution, so that spatial statistics (such as cluster extent, cluster mass, and \textsc{tfce}) can be computed as usual. The first simplification allows the procedure to run in a single phase, without the need to retrieve data for the empirical distribution of the partial tests.}
+\caption[Overview of the original and modified \textsc{npc}]{The original \textsc{npc} algorithm combines non-parametric p-values and, for imaging applications, requires substantial amount of data storage space. Two modifications simplify the procedures: (\textsc{i}) the statistic $t_k$ for each partial test $k$ is transformed into a related quantity $u_k$ that has a behaviour similar to the p-values, and (\textsc{ii}) the combined statistic is transformed to a variable that follows approximately a normal distribution, so that spatial statistics (such as cluster extent, cluster mass, and \textsc{tfce}) can be computed as usual. The first simplification allows the procedure to run in a single phase, without the need to retrieve data for the empirical distribution of the partial tests.}
 \label{fig:flowchart}
 \end{figure}
 
 Regardless of the above transformation, the distribution of the combined statistic, $T$, may vary greatly depending on the combining function, and it is always assessed non-parametrically, via permutations. Different distributions for different combining functions can, however, pose practical difficulties when computing spatial statistics such as cluster extent, cluster mass, and even threshold-free cluster enhancement \citep[\textsc{tfce},][]{Smith2009}. Consider for instance the threshold used to define clusters: prescribed values such as 2.3 or 3.1 \citep{Woo2014} relate to the normal distribution and are not necessarily sensible choices for combining functions such as Tippett or Fisher. Moreover, for some combining functions, such as Tippett and Edgington, smaller values for the statistic are evidence towards the rejection of the null, as opposed to larger as with most of the others. To address these practical issues, a monotonic transformation can be applied to the combined statistic, so that its behaviour becomes more similar to, for instance, the $z$-statistic \citep{Efron2004}. This can be done again by resorting to the asymptotic behaviour of the tests: the combined statistic is converted to a parametric p-value (the formulas are summarised in Table~\ref{tab:comparison}), which, although not valid for inference unless certain assumptions are met, particularly with respect to the independence among the partial tests, are useful to transform, at each permutation, the combined statistic to the $z$-statistic, which can then be used for inference using cluster extent, mass, or \textsc{tfce}.
-
-\subsection{Consistency of combined tests}
-\label{sec:comb:consistency}
-
-A hypothesis test is said to be \emph{consistent} if, for a fixed test level, its power goes to unity as the sample size increases to infinity. The use of a non-consistent combining function to form an \textsc{npc} test is problematic, as the rejection region may not be reached even if the p-value for one or more of the partial tests approach zero, thus violating the second of the three desirable properties of the combining functions, presented in Section~\ref{sec:comb:npc}.
-
-Among the functions shown in Table~\ref{tab:comparison}, the notable non-consistent combining functions are the Edgington and Wilkinson (see \ref{sec:comb:review}). Also, it should be noted that functions that define conjunctions (\textsc{iut}), such as those based on $\max\left(p_k\right)$, are likewise not consistent in the context of \textsc{npc}, as the latter serves to test the global null hypothesis. Figure~\ref{fig:inconsistent} shows rejection regions for some inconsistent combining functions, and variants, similarly as for the (consistent) shown in Figure~\ref{fig:rejection}.
-
-\begin{figure}[p]
-\begin{center}
-\centerline{\includegraphics[scale=.8]{images/inconsistent.eps}}
-\end{center}
-\caption{Examples of inconsistent combining functions for testing the global null hypothesis: \emph{(a)} Addition of p-values for the partial tests \citep{Edgington1972}; \emph{(b)} Maximum of p-values for the partial tests, with the p-value computed as $T^K$ \citep{Friston1999, Friston2005}; \emph{(c)} Maximum of p-values for the partial tests, but with the p-value computed as $T$ \citep{Nichols2005}. While the last is not appropriate for testing the global null, it is appropriate for the conjunction null.}
-\label{fig:inconsistent}
-\end{figure}
-
-\subsection{Admissibility of combined tests}
-\label{sec:comb:admissibility}
-
-A combined hypothesis test is said to be \emph{admissible} if there exists no other test that, at the same significance level, without being less powerful to all possible alternative hypotheses, is more powerful to at least one alternative \citep{Lehmann2005}. This can be stated in terms of either of two sufficient conditions for admissibility: (\textsc{i}) that rejection of the null for a given p-value implies the rejection of the null for all other p-values smaller or equal than that, or (\textsc{ii}) that the rejection region is convex in the space of the test statistic.
-
-Combinations that favour tests with concordant directions (Section~\ref{sec:comb:directed}), if used with of non-directional partial tests, create tests that are inadmissible, that is, tests that are not optimal in the sense that there exist other tests that, without being less powerful to some true alternative hypotheses, are more powerful to at least one true alternative. Inadmissibility implies that the test cannot be used, as certain combinations of partial tests lead to nonsensical results, such as rejecting the \textsc{jnh} for some partial p-values, and failing to reject for some p-values that are even smaller. Figure~\ref{fig:inadmissible} shows rejection regions of inadmissible versions of the combining functions considered in Figures~\ref{fig:rejection} and \ref{fig:inconsistent}; clearly none of the two conditions above are satisfied. The particular combining function shown in Equation~\ref{eqn:pearson-david} was suggested by \citet{Pearson1933} and used by \citet{David1934}, but after a paper by \citet{Birnbaum1954}, it was for decades thought to be inadmissible. However, it is in fact admissible \citep{Owen2009}.
-
-\begin{figure}[!p]
-\begin{center}
-\centerline{\includegraphics[scale=.8]{images/inadmissible.eps}}
-\end{center}
-\caption{\emph{Upper row:} Inadmissible versions of the four consistent combining functions shown in Figure~\ref{fig:rejection} (in the same order). \emph{Lower row:} Inadmissible versions of the three inconsistent combining functions shown in Figure~\ref{fig:inconsistent} (in the same order). These inadmissible functions arise if one attempts to favour alternatives with the same sign while performing two-tailed partial tests.}
-\label{fig:inadmissible}
-\end{figure}
-
-Admissibility is important in that it allows, for more than just two partial tests, combined tests that favour alternative hypotheses with the same direction. Other possibilities favouring alternatives with common direction, such as multiplying together the partial test statistics to produce a combined statistic, work for two partial tests only \citep{Hayasaka2006}.
 
 \subsection{Directed, non-directed, and concordant hypotheses}
 \label{sec:comb:directed}
@@ -374,12 +346,45 @@ Rejection regions for these three cases, for four different combining functions,
 \begin{center}
 \centerline{\includegraphics[scale=.8]{images/rejection.eps}}
 \end{center}
-\caption{
+\caption[Rejection regions of two partial tests with four different combining functions.]{
 \emph{Upper row:} Rejection regions for the combination of two partial tests using four different combining functions, and with the p-values assessed parametrically (Table~\ref{tab:comparison}). The regions are shown as function of the p-values of the partial tests ($p_k$).
 \emph{Middle row:} Rejection regions for the same functions with the modification to favour alternative hypotheses with concordant directions.
 \emph{Lower row:} Rejection regions for the same functions with the modification to ignore the direction altogether, that is, for two-tailed partial tests.}
 \label{fig:rejection}
 \end{figure}
+
+\subsection{Consistency of combined tests}
+\label{sec:comb:consistency}
+
+A hypothesis test is said to be \emph{consistent} if, for a fixed test level, its power goes to unity as the sample size increases to infinity. The use of a non-consistent combining function to form an \textsc{npc} test is problematic, as the rejection region may not be reached even if the p-value for one or more of the partial tests approach zero, thus violating the second of the three desirable properties of the combining functions, presented in Section~\ref{sec:comb:npc}.
+
+Among the functions shown in Table~\ref{tab:comparison}, the notable non-consistent combining functions are the Edgington and Wilkinson (see \ref{sec:comb:review}). Also, it should be noted that functions that define conjunctions (\textsc{iut}), such as those based on $\max\left(p_k\right)$, are likewise not consistent in the context of \textsc{npc}, as the latter serves to test the global null hypothesis. Figure~\ref{fig:inconsistent} shows rejection regions for some inconsistent combining functions, and variants, similarly as for the (consistent) shown in Figure~\ref{fig:rejection}.
+
+\begin{figure}[p]
+\begin{center}
+\centerline{\includegraphics[scale=.8]{images/inconsistent.eps}}
+\end{center}
+\caption[Examples of inconsistent combining functions.]{Examples of inconsistent combining functions for testing the global null hypothesis: \emph{(a)} Addition of p-values for the partial tests \citep{Edgington1972}; \emph{(b)} Maximum of p-values for the partial tests, with the p-value computed as $T^K$ \citep{Friston1999, Friston2005}; \emph{(c)} Maximum of p-values for the partial tests, but with the p-value computed as $T$ \citep{Nichols2005}. While the last is not appropriate for testing the global null, it is appropriate for the conjunction null.}
+\label{fig:inconsistent}
+\end{figure}
+
+\subsection{Admissibility of combined tests}
+\label{sec:comb:admissibility}
+
+A combined hypothesis test is said to be \emph{admissible} if there exists no other test that, at the same significance level, without being less powerful to all possible alternative hypotheses, is more powerful to at least one alternative \citep{Lehmann2005}. This can be stated in terms of either of two sufficient conditions for admissibility: (\textsc{i}) that rejection of the null for a given p-value implies the rejection of the null for all other p-values smaller or equal than that, or (\textsc{ii}) that the rejection region is convex in the space of the test statistic.
+
+Combinations that favour tests with concordant directions (Section~\ref{sec:comb:directed}), if used with of non-directional partial tests, create tests that are inadmissible, that is, tests that are not optimal in the sense that there exist other tests that, without being less powerful to some true alternative hypotheses, are more powerful to at least one true alternative. Inadmissibility implies that the test cannot be used, as certain combinations of partial tests lead to nonsensical results, such as rejecting the \textsc{jnh} for some partial p-values, and failing to reject for some p-values that are even smaller. Figure~\ref{fig:inadmissible} shows rejection regions of inadmissible versions of the combining functions considered in Figures~\ref{fig:rejection} and \ref{fig:inconsistent}; clearly none of the two conditions above are satisfied. The particular combining function shown in Equation~\ref{eqn:pearson-david} was suggested by \citet{Pearson1933} and used by \citet{David1934}, but after a paper by \citet{Birnbaum1954}, it was for decades thought to be inadmissible. However, it is in fact admissible \citep{Owen2009}.
+
+\begin{figure}[!p]
+\begin{center}
+\centerline{\includegraphics[scale=.8]{images/inadmissible.eps}}
+\end{center}
+\caption[Examples of inadmissible combining functions.]{\emph{Upper row:} Inadmissible versions of the four consistent combining functions shown in Figure~\ref{fig:rejection} (in the same order). \emph{Lower row:} Inadmissible versions of the three inconsistent combining functions shown in Figure~\ref{fig:inconsistent} (in the same order). These inadmissible functions arise if one attempts to favour alternatives with the same sign while performing two-tailed partial tests.}
+\label{fig:inadmissible}
+\end{figure}
+
+Admissibility is important in that it allows, for more than just two partial tests, combined tests that favour alternative hypotheses with the same direction. Other possibilities favouring alternatives with common direction, such as multiplying together the partial test statistics to produce a combined statistic, work for two partial tests only \citep{Hayasaka2006}.
+
 
 \subsection{The method of Tippett}
 
@@ -415,7 +420,7 @@ Armed with these concepts, and with the modifications to the original \textsc{np
 
 Since combinations and conjunctions are performed at each individual image point, it is necessary that all images have been registered to the same common space and possess similar spatial resolution \citep{Lazar2002}. This can be accomplished through intra-subject and inter-subject registration and resampling. By contrast, correction for the multiplicity of tests uses the maximum statistic across such tests, thus not requiring that the tests match on space, or even that they are all related to imaging. However, they explicitly require pivotal statistics \citep[for pivotality in this context, see][]{Winkler2014}, so that the extreme is taken from statistics that share the same sampling distribution. The statistics used with \textsc{cmv} and \textsc{npc} are all pivotal and therefore can be used. Spatial statistics, however, lack this property and require similar search volumes and resolutions, even for correction. Moreover, by including information from neighbouring voxels, such as using spatial smoothing or spatial statistics like \textsc{tfce} \citep{Smith2009}, subset pivotality is lost, meaning that strong control of \textsc{fwer} cannot be guaranteed. In practice, though, the power gained by pooling information over space is essential. In the \ref{sec:comb:implementation} we provide an algorithm that generically implements the combination and correction methods presented.
 
-%\subsection{Implementation}
+\subsection{Implementation}
 \label{sec:comb:implementation}
 
 A unified algorithm for combination and correction that is amenable for use with imaging applications is shown below. It has many similarities with the \texttt{randomise} algorithm \citep{Winkler2014}, with various modifications to accommodate combination and correction. The p-values adjusted for the multiplicity of tests are computed using the distribution of the extremum statistic, which can be collapsed across modalities and/or designs and contrasts for each case, rendering the algorithm simpler. The notation below is slightly different than that used throughout the paper. The inputs are:
@@ -632,7 +637,7 @@ Within the algorithm, the functions are:
 
 The algorithm has four major parts: the first consists of the loop that begins in line 5 of the pseudocode above, and which consists of a simplified version of the \texttt{randomise} algorithm. The second begins with the conditional structure in line 27, which performs the combination and computes distribution of the extremum statistics for each case of \textsc{npc}, thus also treating the \textsc{mtp-i}. These initial two parts are repeated for each shufflong, in the loop that begins in line 3. The third part begins with the conditional in line 51, that is, once all rearrangements have been performed; in this part, the distributions are used to compute the combined p-values. Finally, the fourth part begins with the conditional in line 68, in which the \textsc{mtp-ii} is addressed.
 
-As shown, the algorithm is simplified so as to emphasise the most important aspects of combination and correction. However, various modifications and improvements can be applied for particular circumstances, and for speed, including the partitioning discussed in the Appendix A of \citet{Winkler2014}. An open-source working implementation, that can be executed in \textsc{Matlab} \citep{MATLAB2013} or Octave \citep{Eaton2014}, is available in the tool \emph{Permutation Analysis of Linear Models} (\textsc{palm}), available for download at \href{http://www.fmrib.ox.ac.uk/fsl}{\texttt{www.fmrib.ox.ac.uk/fsl}}.
+As shown, the algorithm is simplified so as to emphasise the most important aspects of combination and correction. However, various modifications and improvements can be applied for particular circumstances, and for speed, including the partitioning discussed in the Appendix A of \citet{Winkler2014}. An open-source working implementation, that can be executed in \textsc{Matlab} \citep{MATLAB2015} or Octave \citep{Eaton2015}, is available in the tool \emph{Permutation Analysis of Linear Models} (\textsc{palm}), available for download at \href{http://www.fmrib.ox.ac.uk/fsl}{\texttt{www.fmrib.ox.ac.uk/fsl}}.
 
 \section{Evaluation methods}
 
@@ -640,7 +645,7 @@ As shown, the algorithm is simplified so as to emphasise the most important aspe
 
 To assess the validity of the proposed modification to the \textsc{npc}, we consider one of the simplest scenarios that would have potential to invalidate the method and reduce power: this is the case of having a small number of partial tests, small sample size, and with each partial test possessing substantially different distributions for the error terms. We investigated such a scenario with $K=2$, varying sample sizes $N = \{$8, 12, 20, 30, 40, 50, 60, 70, 80, 120, 200$\}$, and different error distributions. Using the notation defined in Section \ref{sec:comb:notation}, response variables were generated for each simulation using the model $\mathbf{Y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\epsilon}$, with $\mathbf{Y}$ sized $N \times K$. Each modality was simulated as having 500 points, these representing, for instance, voxels or vertices of an image representation of the brain. The errors, $\boldsymbol{\epsilon} = \left[\boldsymbol{\epsilon}_1 , \boldsymbol{\epsilon}_2\right]$, were simulated following either a Gaussian distribution with zero mean and unit variance, or a Weibull distribution (skewed), with scale parameter 1 and shape parameter 1/3, shifted and scaled so as to have expected zero mean and unit variance. Different combinations of error distributions were used: Gaussian for both partial tests, Weibull for both partial tests, or Gaussian for the first, and Weibull for the second partial test.
 
-The response data, $\mathbf{Y}$, were constructed by adding the simulated effects, $\mathbf{X}\boldsymbol{\beta}$, to the simulated errors, where $\boldsymbol{\beta} = \left[\boldsymbol{\beta}_1,\boldsymbol{\beta}_2\right]$, with $\boldsymbol{\beta}_k$ $=$ $[\beta_1, 0]'$, $\beta_1$ being either 0 (no signal) or $t^{-1}_{\text{cdf}}\left(1-\alpha ; N-\mathsf{rank}\left(\mathbf{X}\right)\right)\left/\sqrt{N}\right.$ (with signal), where $\alpha$ $=$ $0.05$ is the significance level of the permutation test to be performed. This procedure ensures a calibrated signal strength sufficient to yield an approximate power of 50\% for each partial test, with Gaussian errors, irrespective of the sample size; for non-Gaussian errors this procedure does not guarantee power at the same level. The actual effect was coded in the first regressor of $\mathbf{X}$, constructed as a vector of random values following a Gaussian distribution with zero mean and unit variance; the second regressor was modelled an intercept. All four possible combinations of presence/absence of effect among the $K=2$ partial tests were simulated, that is, (1) with no signal in any of the two partial tests, (2) with signal in the first partial test only, (3) with signal in the second partial test only, and (4) with signal in both partial tests.
+The response data, $\mathbf{Y}$, were constructed by adding the simulated effects, $\mathbf{X}\boldsymbol{\beta}$, to the simulated errors, where $\boldsymbol{\beta} = \left[\boldsymbol{\beta}_1,\boldsymbol{\beta}_2\right]$, with $\boldsymbol{\beta}_k$ $=$ $[\beta_1, 0]'$, $\beta_1$ being either 0 (no signal) or $t^{-1}_{\text{cdf}}\left(1-\alpha ; N-\mathrm{rank}\left(\mathbf{X}\right)\right)\left/\sqrt{N}\right.$ (with signal), where $\alpha$ $=$ $0.05$ is the significance level of the permutation test to be performed. This procedure ensures a calibrated signal strength sufficient to yield an approximate power of 50\% for each partial test, with Gaussian errors, irrespective of the sample size; for non-Gaussian errors this procedure does not guarantee power at the same level. The actual effect was coded in the first regressor of $\mathbf{X}$, constructed as a vector of random values following a Gaussian distribution with zero mean and unit variance; the second regressor was modelled an intercept. All four possible combinations of presence/absence of effect among the $K=2$ partial tests were simulated, that is, (1) with no signal in any of the two partial tests, (2) with signal in the first partial test only, (3) with signal in the second partial test only, and (4) with signal in both partial tests.
 
 The simulated data was tested using the Tippett and Fisher methods. The case with complete absence of signal was used to assess error rates, and the others to assess power. The p-values were computed with 500 permutations, and the whole process was repeated 500 times, allowing histograms of p-values to be constructed, as well as to estimate the variability around the heights of the histogram bars. Confidence intervals (95\%) were computed for the empirical error rates and power using the Wilson method \citep{Wilson1927}. The p-values were also compared using Bland--Altman plots \citep{Bland1986}, modified so as to include the confidence intervals around the means of the methods.
 
@@ -655,7 +660,7 @@ Four different simulation sets were conducted, named \textsc{a}--\textsc{d}; in 
 \centerline{\includegraphics{images/simulations.eps}}
 \end{center}
 \vspace{-3mm}
-\caption{The simulations \textsc{a}--\textsc{d}. Each was constructed with a set of $K$ partial tests, a number of which ($K_s$) had synthetic signal added.}
+\caption[Overview of the main simulation parameters.]{The simulations \textsc{a}--\textsc{d}. Each was constructed with a set of $K$ partial tests, a number of which ($K_s$) had synthetic signal added.}
 \label{fig:simulations}
 \end{figure}
 
@@ -680,7 +685,7 @@ Both the original and the modified \textsc{npc} methods controlled the error rat
 \centerline{\includegraphics{images/validity_hist.eps}}
 \end{center}
 \vspace{-3mm}
-\caption{Histograms of frequency of p-values for the simulation without signal in either of the two partial tests (upper panel, blue bars) or with signal in both (lower panel, green bars). The values below each plot indicate the height (in percentage) of the first bar, which corresponds to p-values smaller than or equal to 0.05, along with the confidence interval (95\%, italic). Both original and modified \textsc{npc} methods controlled the error rates at the nominal level, and produced flat histograms in the absence of signal. The histograms suggest similar power for both approaches. See also the Supplemental Material.}
+\caption[Histograms of p-values for the simulations.]{Histograms of p-values for the simulation without signal in either of the two partial tests (upper panel, blue bars) or with signal in both (lower panel, green bars). The values below each plot indicate the height (in percentage) of the first bar, which corresponds to p-values smaller than or equal to 0.05, along with the confidence interval (95\%, italic). Both original and modified \textsc{npc} methods controlled the error rates at the nominal level, and produced flat histograms in the absence of signal. The histograms suggest similar power for both approaches. See also the Supplemental Material.}
 \label{fig:validity_hist}
 \end{figure}
 
@@ -691,7 +696,7 @@ When considering the uncorrected p-values, the modified \textsc{npc} yielded a m
 \centerline{\includegraphics{images/validity_ba.eps}}
 \end{center}
 \vspace{-3mm}
-\caption{Bland--Altman plots comparing the original and modified \textsc{npc}, for both uncorrected and corrected p-values, without signal in either of the two partial tests (upper panel, blue dots) or with signal in both (lower panel, green dots). The values below each plot indicate the percentage of points within the 95\% confidence interval ellipsoid. For smaller sample sizes and non-Gaussian error distributions, the methods differ, but the differences become negligible as the sample size increases. In the presence of signal, the modification caused increases in power, particularly for the corrected p-values.}
+\caption[Bland--Altman plots comparing original and modified \textsc{npc}.]{Bland--Altman plots comparing the original and modified \textsc{npc}, for both uncorrected and corrected p-values, without signal in either of the two partial tests (upper panel, blue dots) or with signal in both (lower panel, green dots). The values below each plot indicate the percentage of points within the 95\% confidence interval ellipsoid. For smaller sample sizes and non-Gaussian error distributions, the methods differ, but the differences become negligible as the sample size increases. In the presence of signal, the modification caused increases in power, particularly for the corrected p-values.}
 \label{fig:validity_ba}
 \end{figure}
 
@@ -704,7 +709,7 @@ Representative results demonstrating the performance of the methods of Tippett, 
 \centerline{\includegraphics{images/performance.eps}}
 \end{center}
 \vspace{-3mm}
-\caption{Performance of the modified \textsc{npc} with four representative combining functions (Tippett, Fisher, Stouffer, and Mudholkar--George) and of one \textsc{cmv} (Hotelling's $T^2$), using normal or skewed errors, and using permutations (\textsc{ee}), sign flippings (\textsc{ise}), or both. All resulted in error rates controlled at or below the level of the test. The Tippett and Fisher were generally the most powerful, with Tippett outperforming others with signal present in a small fraction of the tests, and with Fisher having the best power in the other settings.}
+\caption[Performance of the modified \textsc{npc} using different combining functions, compared to Hotelling's $T^2$.]{Performance of the modified \textsc{npc} with four representative combining functions (Tippett, Fisher, Stouffer, and Mudholkar--George) and of one \textsc{cmv} (Hotelling's $T^2$), using normal or skewed errors, and using permutations (\textsc{ee}), sign flippings (\textsc{ise}), or both. All resulted in error rates controlled at or below the level of the test. The Tippett and Fisher were generally the most powerful, with Tippett outperforming others with signal present in a small fraction of the tests, and with Fisher having the best power in the other settings.}
 \label{fig:performance}
 \end{figure}
 
@@ -723,7 +728,7 @@ Using a conventional, mass univariate voxelwise tests, assessed through sign fli
 \centerline{\includegraphics{images/pain.eps}}
 \end{center}
 \vspace{-9mm}
-\caption{Without combination, and with correction across voxels (\textsc{mtp-i}), no significant results were observed at the group level for any of the three tests. Combination using the methods of Fisher, Stouffer and Mudholkar--George (M--G), however, evidenced bilateral activity in the insula in response to hot, painful stimulation. A classical multivariate test, Hotelling's $T^2$, as well as the Tippett method, failed to identify these areas. An intersection-union test (conjunction) could not locate significant results; such a test has a different null hypothesis that distinguishes it from the others. Images are in radiological orientation. For cluster-level results, comparable to \citet{Brooks2005}, see the Supplementary Material.}
+\caption[Results of the example pain study.]{Without combination, and with correction across voxels (\textsc{mtp-i}), no significant results were observed at the group level for any of the three tests. Combination using the methods of Fisher, Stouffer and Mudholkar--George (M--G), however, evidenced bilateral activity in the insula in response to hot, painful stimulation. A classical multivariate test, Hotelling's $T^2$, as well as the Tippett method, failed to identify these areas. An intersection-union test (conjunction) could not locate significant results; such a test has a different null hypothesis that distinguishes it from the others. Images are in radiological orientation. For cluster-level results, comparable to \citet{Brooks2005}, see the Supplementary Material.}
 \label{fig:pain}
 \end{figure}
 
@@ -741,7 +746,7 @@ The results suggest that, even in the cases in which the modified \textsc{npc} c
 
 \subsection{Performance of combined tests}
 
-The results also demonstrate that the \textsc{npc} method is more powerful than the Hotelling's $T^2$. The superiority of combined permutation tests when compared to classical multivariate tests has been observed in the literature \citep{Blair1994}, and the fact that power increases as the number of partial tests with signal increases is one of its most remarkable features. While \textsc{cmv} depends on the positive-definiteness of the covariance matrix of the vectors of residuals, such limitation does not apply to \textsc{npc} \citep{Pesarin2010_finite}. As a consequence, although in the comparisons only the Hotelling's $T^2$ and the Wilks' $\lambda$ statistics were used (in the simulations, $\mathsf{rank}\left(\mathbf{C}\right) = 1$), and had their p-values assessed through permutations, similar behaviour can be expected when using other \textsc{cmv}s, such as Pillai's trace (and with $\mathsf{rank}\left(\mathbf{C}\right) > 1$). With effect, \textsc{npc} can be used even when the number of variables equals or even greatly exceeds the number of observations, that is, when $K \geqslant N$. In the results shown in Figure~\ref{fig:performance}, this can be noted as a reduction in power that can be seen with the Hotelling's $T^2$, particularly for simulation \textsc{d}, and this is the case even considering that the test is assessed through permutations.
+The results also demonstrate that the \textsc{npc} method is more powerful than the Hotelling's $T^2$. The superiority of combined permutation tests when compared to classical multivariate tests has been observed in the literature \citep{Blair1994}, and the fact that power increases as the number of partial tests with signal increases is one of its most remarkable features. While \textsc{cmv} depends on the positive-definiteness of the covariance matrix of the vectors of residuals, such limitation does not apply to \textsc{npc} \citep{Pesarin2010_finite}. As a consequence, although in the comparisons only the Hotelling's $T^2$ and the Wilks' $\lambda$ statistics were used (in the simulations, $\mathrm{rank}\left(\mathbf{C}\right) = 1$), and had their p-values assessed through permutations, similar behaviour can be expected when using other \textsc{cmv}s, such as Pillai's trace (and with $\mathrm{rank}\left(\mathbf{C}\right) > 1$). With effect, \textsc{npc} can be used even when the number of variables equals or even greatly exceeds the number of observations, that is, when $K \geqslant N$. In the results shown in Figure~\ref{fig:performance}, this can be noted as a reduction in power that can be seen with the Hotelling's $T^2$, particularly for simulation \textsc{d}, and this is the case even considering that the test is assessed through permutations.
 
 Regarding the different combining functions, the simulations show that the method of Tippett is the most powerful when signal is present in only a small fraction of the partial tests. For other cases, other combining functions, particularly that of Fisher, tend to be considerably more powerful.
 
@@ -749,14 +754,7 @@ The results also indicate that the use of sign flipping when the errors are not 
 
 \subsection{Interpretation of combined tests}
 
-The key aspect of the \textsc{npc} is that these tests seek to identify, \emph{on the aggregate} of the partial tests, a measure of evidence against the \textsc{jnh}, even if only some or none of them can be considered significant when seen in isolation, just as originally pointed out by \citet{Fisher1932}:
-
-\begin{quote}
-\emph{When a number of quite independent tests of significance have been made, it sometimes happens that although few or none can be claimed individually as significant, yet the aggregate gives an impression that the probabilities are on the whole lower than would often have been obtained by chance. It is sometimes desired (\ldots) to obtain a single test of the significance of the aggregate.}
-\end{quote}
-
-\noindent
-This is the logic and interpretation of all of these combining statistics, with the exception of the conjunction inference. Combination is known to be able to answer questions that could otherwise not be answered be at all, or be answered less accurately if each information source were considered separately \citep{Draper1992}. Here the simulations and the pain study exemplify these aspects, and the improved sensitivity compared to each partial test when seen in separate.
+The key aspect of the \textsc{npc} is that these tests seek to identify, \emph{on the aggregate} of the partial tests, a measure of evidence against the \textsc{jnh}, even if only some or none of them can be considered significant when seen in isolation, just as originally pointed out by \citet{Fisher1932} (Section~\ref{sec:comb:history}). This is the logic and interpretation of all of these combining statistics, with the exception of the conjunction inference. Combination is known to be able to answer questions that could otherwise not be answered be at all, or be answered less accurately if each information source were considered separately \citep{Draper1992}. Here the simulations and the pain study exemplify these aspects, and the improved sensitivity compared to each partial test when seen in separate.
 
 As they depend on fewer assumptions than classical multivariate tests, \textsc{npc} can be considered whenever the validity of the former cannot be guaranteed. Even when parametric \textsc{cmv} assumptions hold, note that the \textsc{npc} can have superior power when sample size is small and prevents precise estimation of a covariance.
 
