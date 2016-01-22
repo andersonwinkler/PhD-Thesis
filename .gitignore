@@ -7,4 +7,6 @@
 *.lot
 *.out
 *.toc
+*.gz
+*.pdf
 *~

@@ -24,13 +24,13 @@
 % \usepackage{lipsum}                % Lorem ipsum
 
 % Use XeLaTeX and set fonts
-\usepackage{mathspec}           % keep math standard TeX fonts, not XeTeX fonts
+%\usepackage{mathspec}           % keep math standard TeX fonts, not XeTeX fonts
 \usepackage{xltxtra}            % for the XeLaTeX stuff (it incorporates fontspec)
 \defaultfontfeatures{Mapping=tex-text,Contextuals=Swash,Ligatures={Required,Common,Contextual,Rare}}
 \setmainfont[Numbers=Lining]{Linux Libertine O}
 \setromanfont[Numbers=Lining]{Linux Libertine O}
 \setsansfont{Linux Biolinum O}
-\setmonofont[Scale=MatchLowercase]{Linux Mono O}
+\setmonofont[Scale=MatchLowercase]{Linux Libertine Mono O}
 \renewcommand{\thepage}{\arabic{page}} % font for the page numbers as lining
 
 % Format for the captions
@@ -109,14 +109,13 @@
 % \blankpage \listofalgorithms
 \setstretch{1}
 \blankpage \include{10intro}
-\blankpage \include{20facewise}
-\blankpage \include{30piecewise}
-\blankpage \include{40permutation}
+%\blankpage \include{20facewise}
+%\blankpage \include{40permutation}
 \blankpage \include{50combination}
-\blankpage \include{60morphometry}
+%\blankpage \include{60morphometry}
 \blankpage \appendix
 % \renewcommand{\appendixname}{aaa}
-\blankpage \include{80terms}
+%\blankpage \include{80terms}
 \blankpage \bibliography{refs}
 
 \end{document}          

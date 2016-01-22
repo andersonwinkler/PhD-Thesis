@@ -152,7 +152,7 @@ The average area per face across subjects was computed after registration and in
 
 \subsection{Distributional characterization}
 
-To evaluate the normality for the cortical area at the white surface of the native geometry, we used the Shapiro-Wilk normality test \citep{Shapiro1965}, implemented with the approximations for samples larger than 50 as described by \citet{Royston1993}. The test was applied after each hemisphere of the brain was registered to a study-specific template using the Spherical Demons and interpolated to the geodesic sphere using areal interpolation.
+To evaluate the normality for the cortical area at the white surface of the native geometry, we used the Shapiro--Wilk normality test \citep{Shapiro1965}, implemented with the approximations for samples larger than 50 as described by \citet{Royston1993}. The test was applied after each hemisphere of the brain was registered to a study-specific template using the Spherical Demons and interpolated to the geodesic sphere using areal interpolation.
 
 For the vast majority of the faces, the area of the white surface is \emph{not} normally distributed (Figures~\ref{fig:shapiro}--\ref{fig:kurtosis-hist}). Instead, the lognormal distribution seems to be more appropriate to describe the data in most parts of the brain, with the test declaring a much larger number of faces as normally distributed after a simple logarithmic transformation. A log-transformation is a particular case of the Box--Cox transformation \citep{Box1964}. For a set of values $y=\left\{ y_1, y_2, \ldots , y_n \right\}$, this transformation uses maximum-likelihood methods to seek a parameter $\lambda$ that produces a transformed set $\tilde{y}=\left\{ \tilde{y}_1, \tilde{y}_2, \ldots , \tilde{y}_n \right\}$ that approximately conforms to a normal distribution. The transformation is a piecewise function given by:
 
@@ -182,7 +182,7 @@ Not surprisingly, the Box--Cox transformation rendered the data more normally di
 \begin{figure}[!p]  % Figure 6
 \centering
 \includegraphics[width=14cm]{images/histograms.eps}
-\caption[Results of the Shapiro-Wilk normality test.]{Distribution of the uncorrected p-values of the Shapiro-Wilk normality test. For normally distributed data, 5\% of these tests are always expected to be declared as not normal with a significance level of $\mathsf{\alpha=0.05}$. Without transformation or smoothing, near 80\% are found as not normal. Logarithmic and Box--Cox transformations render the data more normally distributed. Observe that the frequencies are shown in logscale. The dashed line (blue) is at the frequency that would be observed for uniformly distributed p-values.}
+\caption[Results of the Shapiro--Wilk normality test.]{Distribution of the uncorrected p-values of the Shapiro--Wilk normality test. For normally distributed data, 5\% of these tests are always expected to be declared as not normal with a significance level of $\mathsf{\alpha=0.05}$. Without transformation or smoothing, near 80\% are found as not normal. Logarithmic and Box--Cox transformations render the data more normally distributed. Observe that the frequencies are shown in logscale. The dashed line (blue) is at the frequency that would be observed for uniformly distributed p-values.}
 \label{fig:histograms}
 \end{figure}
 
