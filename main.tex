@@ -16,13 +16,14 @@
 \usepackage{pifont}
 \usepackage{textcomp}
 \usepackage{algpseudocode}             % for the algorithm pseudocode
+\usepackage{enumitem}
 \usepackage{setspace}                  % command \setstretch for line spacing on the text only
 \usepackage[figuresright]{rotating}    % environment sidewaystable
+\usepackage{xfrac}
 
 % Temporary packages for testing
 % \usepackage{graphicx}              % comment this out with XeLaTeX, but keep with pdfLaTeX
-% \usepackage{lipsum}                % Lorem ipsum
-
+%
 % Use XeLaTeX and set fonts
 %\usepackage{mathspec}           % keep math standard TeX fonts, not XeTeX fonts
 \usepackage{xltxtra}            % for the XeLaTeX stuff (it incorporates fontspec)
@@ -103,19 +104,20 @@
 
 \pagestyle{fancy}
 \setstretch{\lspac}
-\blankpage \tableofcontents
-\blankpage \listoffigures
-\blankpage \listoftables
+%\blankpage \tableofcontents
+%\blankpage \listoffigures
+%\blankpage \listoftables
 % \blankpage \listofalgorithms
 \setstretch{1}
 \blankpage \include{10intro}
-%\blankpage \include{20facewise}
-%\blankpage \include{40permutation}
-\blankpage \include{50combination}
+\blankpage \include{20facewise}
+\blankpage \include{40permutation}
+\blankpage \include{51combination}
 %\blankpage \include{60morphometry}
 \blankpage \appendix
 % \renewcommand{\appendixname}{aaa}
 %\blankpage \include{80terms}
-\blankpage \bibliography{refs}
+\setstretch{1}
+\blankpage \bibliography{biblio}
 
 \end{document}          

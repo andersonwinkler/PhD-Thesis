@@ -1,5 +1,5 @@
 \chapter{Combination inference}
-\label{sec:combination}
+\label{sec:comb:combination}
 \setstretch{\lspac}
 
 \section{Introduction}
@@ -24,11 +24,11 @@
 
 % Philosophical questions: should we combine or dissect?
 
-The previous chapter discussed how permutation methods, for being free of various assumptions related to classical parametric tests, could better adapt to the growing variety of experimental imaging methods. In this chapter, these ideas are further extended to non-parametrically allow \emph{joint inference} on more than one modality, that is, how to infer about hypotheses concerning these modalities when more than one image is available for each subject. Examples of such modalities include the same cited in Chapter~\ref{sec:permglm}, such as, but not limited to, positron emission tomography (\textsc{pet}), functional magnetic resonance imaging (\textsc{fmri}), tensor-based morphometry (\textsc{tbm}), diffusion tensor imaging (\textsc{dti}), cortical thickness and surface area, cerebral perfusion, as well as various others.
+The previous chapter discussed how permutation methods, for being free of various assumptions related to classical parametric tests, could better adapt to the growing variety of experimental imaging methods. In this chapter, these ideas are further extended to non-parametrically allow \emph{joint inference} on more than one modality, that is, how to infer about hypotheses concerning these modalities when more than one image is available for each subject. Examples of such modalities include the same cited in Chapter~\ref{sec:comb:permglm}, such as, but not limited to, positron emission tomography (\textsc{pet}), functional magnetic resonance imaging (\textsc{fmri}), tensor-based morphometry (\textsc{tbm}), diffusion tensor imaging (\textsc{dti}), cortical thickness and surface area, cerebral perfusion, as well as various others.
 
 Further to these examples, it is also the case that the same imaging modality is often subdivided so as to better characterise certain physical properties --- including morphology and function --- of the biological tissue. As an example, diffusion-weighted images are often used to generate maps of fractional anisotropy (\textsc{fa}), mean diffusivity (\textsc{md}), radial diffusivity (\textsc{rd}), as well as lengths of the eigenvectors of the diffusion tensor and other measurements. Another example is the use of independent component analysis (\textsc{ica}) to decompose \textsc{fmri} time series into a set of timecourses and spatial maps. Only some of these components might be of actual interest, or the effect of interest might be split into more than one; in either case, a strategy that could combine the information from these into a single inferential step tends to be more meaningful than various separate tests.
 
-Historically, as in the case of the permutation tests discussed in Chapter~\ref{sec:permglm}, Ronald A.\ Fisher was among the first to propose such joint analysis of various tests. In the fourth edition of his now classical book \textit{Statistical Methods for Research Workers} \citep{Fisher1932}, his approach was described rather succinctly:
+Historically, as in the case of the permutation tests discussed in Chapter~\ref{sec:comb:permglm}, Ronald A.\ Fisher was among the first to propose such joint analysis of various tests. In the fourth edition of his now classical book \textit{Statistical Methods for Research Workers} \citep{Fisher1932}, his approach was described rather succinctly:
 
 \begin{quote}
 \emph{When a number of quite independent tests of significance have been made, it sometimes happens that although few or none can be claimed individually as significant, yet the aggregate gives an impression that the probabilities are on the whole lower than would often have been obtained by chance. It is sometimes desired, taking account only of these probabilities, and not of the detailed composition of the data from which they are derived, which may be of very different kinds, to obtain a single test of the significance of the aggregate, based on the product of the probabilities individually observed.}
