@@ -1,0 +1,184 @@
+\pagestyle{empty}
+% ======[COVER]======
+\setstretch{1}
+\vspace*{3cm}
+\vspace*{\fill}
+\begin{center}
+\begin{Huge}
+\textbf{Statistical analysis of areal quantities\\through permutation tests}
+\end{Huge}
+\end{center}
+
+\vfill
+
+\begin{center}
+%\begin{large}
+\textsc{dissertation}
+%\end{large}
+
+\vfill
+
+%\begin{large}
+to obtain the joint degree of Doctor at the\\
+Universiteit Maastricht and Universit\'{e} de Li\`{e}ge
+%\end{large}
+
+\vfill
+
+%\begin{large}
+on the authorities of the Rectores Magnifici,\\
+Professor Luc Soete and Professor Albert Corhay
+%\end{large}
+
+\vfill
+
+%\begin{large}
+in accordance with the decision of the Board of Deans,\\
+to be defended in public on Monday the 21 July 1969 at 2h56
+%\end{large}
+
+\vfill
+
+%\begin{large}
+by
+%\end{large}
+\end{center}
+
+\vfill
+
+\begin{center}
+\begin{Large}
+\textbf{Anderson M.\ Winkler}
+\end{Large}
+\end{center}
+
+\vspace*{3cm}
+\vspace*{\fill}
+
+% ======[BACK OF COVER]======
+\newpage
+\setstretch{1}
+\noindent
+\textbf{Supervisors:}\\
+Prof.\ Dr.\ X.\\
+Prof.\ Dr.\ Y.
+
+\vspace*{5mm}
+
+\noindent
+\textbf{Co-supervisors:}\\
+Prof.\ Dr.\ Z.\\
+Prof.\ Dr.\ W.
+
+\vspace*{5mm}
+
+\noindent
+\textbf{Assessment Committee:}\\
+Prof.\ Dr.\ A., University of A.\ \emph{(Chair)}\\
+Prof.\ Dr.\ B., University of B.\\
+Prof.\ Dr.\ C., University of C.
+
+\vfill
+
+\noindent
+ISBN: 978-00-0000-000-0 \textcopyright\ Anderson M.\ Winkler, 2016\\
+The work presented in this thesis was funded by the European Union within the \textsc{people} Programme \textsc{fp7}: Marie Curie Initial Training Networks (\textsc{fp7-people-itn-2008}), Grant Agreement 238593 ``Neurophysics'', in which Universiteit Maas\-tricht, Universit\'{e} de Li\`{e}ge, Forschungszentrum J\"{u}lich, and GlaxoSmithKline were network partners.
+
+% ======[ABSTRACT]======
+\cleardoublepage
+\setstretch{1}
+\renewcommand\abstractname{{\Large Abstract}}
+\begin{abstract}
+In this thesis we demonstrate that direct measurement and comparison across subjects of the surface area of the cerebral cortex at a fine scale is possible using mass conservative interpolation methods. We present a framework for analyses of the cortical surface area, as well as for any other measurement distributed across the cortex that is areal by nature, including cortical gray matter volume. The method consists of the construction of a mesh representation of the cortex, registration to a common coordinate system and, crucially, interpolation using a pycnophylactic method. Statistical analysis of surface area is done with power-transformed data to address lognormality, and inference is done with permutation methods, which can provide exact control of false positives, making only weak assumptions about the data. We further report on results on approximate permutation methods that are more flexible with respect to the experimental design and nuisance variables, conducting detailed simulations to identify the best method for settings that are typical for imaging scenarios. We present a generic framework for permutation inference for complex general linear models (GLMs) when the errors are exchangeable and/or have a symmetric distribution, and show that, even in the presence of nuisance effects, these permutation inferences are powerful. We also demonstrate how the inference on GLM parameters, originally intended for independent data, can be used in certain special but useful cases in which independence is violated. Finally, we show how permutation methods can be applied to combination analyses such as those that include multiple imaging modalities, multiple data acquisitions of the same modality, or simply multiple hypotheses on the same data. For this, we use synchronised permutations, allowing flexibility to integrate imaging data with different spatial resolutions, surface and/or volume-based representations of the brain, including non-imaging data. For the problem of joint inference, we propose a modification of the Non-Parametric Combination (NPC) methodology, such that instead of a two-phase algorithm and large data storage requirements, the inference can be performed in a single phase, with more reasonable computational demands. We also evaluate various combining methods and identify those that provide the best control over error rate and power across. We show that one of these, the method of Tippett, provides a link between correction for the multiplicity of tests and their combination.
+\end{abstract}
+
+% ======[DECLARATION]======
+\cleardoublepage
+\newpage
+\setstretch{1}
+\vspace*{\fill}
+\begin{center}
+\begin{Large}
+\textbf{Declaration}
+\end{Large}
+\end{center}
+
+\noindent
+I hereby declare that except where specific reference is made to the work of others, the contents of this dissertation are original and have not been submitted in whole or in part for consideration for any other degree or qualification in these, or any other Universities. This dissertation is the result of my own work and includes nothing which is the outcome of work done in collaboration, except where specifically indicated in the text.
+
+\begin{flushright}
+Anderson M.\ Winkler\\
+January 2016
+\end{flushright}
+
+\vspace*{\fill}
+
+%% ======[ACKNOWLEDGEMENTS]======
+%\cleardoublepage
+%\newpage
+%\setstretch{1}
+%\vspace*{\fill}
+%\begin{center}
+%\begin{Large}
+%\textbf{Acknowledgements}
+%\end{Large}
+%\end{center}
+%
+%\noindent
+%\`{A} minha fam\'{i}lia.
+%
+%\vspace{3mm}
+%
+%\noindent
+%To the whole network of supervisors and promoters involved in this multi-insti\-tu\-tional project, especially Prof.\ Dr.\ Thomas E.\ Nichols and Prof.\ Dr.\ Stephen M.\ Smith, for their effective advisorship.
+%
+%\vspace{3mm}
+%
+%\noindent
+%I am thankful extremely to the funding support provided by the Marie Curie --- Initial Training Network (\textsc{mc-itn}) ``Methods in Neuroimaging'', through its four core partners, Universiteit Maastricht, Universit\'{e} de Li\`{e}ge, Forschungszentrum J\"{u}lich and GlaxoSmithKline. In particular, I am much thankful to the support of Peter de Weerd, Christophe Phillips, Philip S.\ Murphy, and Paul M.\ Matthews.
+%
+%\vspace{3mm}
+%
+%\noindent
+%Some chapters benefited from strong, prolific, and enriching collaboration. The work on areal interpolation (Chapter~\ref{sec:areal}) would have been impossible without the help of, first and foremost, David C.\ Glahn. I am also much indebted to Mert R.\ Sabuncu, B.\ T.\ Thomas Yeo, Bruce Fischl, Douglas N.\ Greve, Peter Kochunov, and John Blangero. The work on permutation for the general linear model (Chapter~\ref{sec:perm}) greatly benefited from the participation of Gerard R.\ Ridgway and Matthew A.\ Webster. The work on combined inference (Chapter~\ref{sec:comb}) was much improved thanks to the participation of Matthew A.\ Webster, Jonathan C.\ Brooks and Irene Tracey.
+%
+%\vspace*{\fill}
+
+% ======[PROPOSITIONS]======
+\cleardoublepage
+\newpage
+\vspace*{\fill}
+\setstretch{1}
+\begin{center}
+\begin{Large}
+\textbf{Propositions}
+\end{Large}
+\end{center}
+
+\begin{center}
+\begin{footnotesize}
+\noindent
+In complement of the dissertation:\\
+\textbf{Statistical analysis of areal quantities through permutation tests}\\
+by Anderson M.\ Winkler\par
+\end{footnotesize}
+\end{center}
+
+\begin{center}
+\begin{footnotesize}
+\noindent
+Propositions 1--4 are related to the subject matter of the dissertation; Propositions 3--7 are related to the subject field of the doctoral candidate; Proposition 8 is not related to either.\par
+\end{footnotesize}
+\end{center}
+
+\begin{enumerate}[leftmargin=*]
+\item Analysis of brain cortical surface area has received insufficient attention compared to thickness and volume, even though it provides a different kind of information about the cortex, particularly when compared to thickness.
+\item Pycnophylactic interpolation is the most appropriate method to resample areal quantities to allow comparisons between individuals.
+\item The $G$-statistic provides a simple generalisation over various well known statistics. Written in matrix form, it can be computed quickly for imaging data, and assessed through permutations, sign flippings, or permutations with sign flippings, either freely or with restrictions imposed by exchangeability blocks,  depending on knowledge or assumptions about the data and residuals.
+\item Non-parametric combination can be modified so as to run in a single phase, rendering its use feasible for imaging data, and offering in general higher power compared to classical multivariate tests.
+\item Voxel-based morphometry (\textsc{vbm}) is an inferior method that had its time, but that should no longer be used for serious research of cortical anatomy, particularly given that other methods are readily available.
+\item Cortical surface area at finer resolution can provide adequate traits that are closer to gene action and be more successful for the identification of genes that influence brain structure and function.
+\item Cortical surface is heritable and has potential to be an endophenotype for psychiatric disorders.
+\item Knowledge of genetic influences on brain structure and function should be used to fight disease and improve quality of life. Its influences on policy making, however, must be seen with great caution, and receive due, wide consideration.
+\end{enumerate}
+\vspace*{\fill}

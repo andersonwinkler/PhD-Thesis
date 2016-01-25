@@ -50,7 +50,7 @@
   filecolor   = corlink,
   linkcolor   = corlink,
   urlcolor    = corlink,
-  pdftitle    = {New Strategies for Permutation Methods in Brain Imaging},
+  pdftitle    = {Statistical analysis of areal quantities},
   pdfauthor   = {Anderson M. Winkler}}
 
 % Header and footer
@@ -80,9 +80,31 @@
 
 % Other new commands
 \newcommand{\ud}{\mathrm{d}}
-\newcommand{\blankpage}{\cleartooddpage[\thispagestyle{empty}]}
+%\newcommand{\blankpage}{\cleartooddpage[\thispagestyle{empty}]}
 \newcommand{\HRule}{\rule{\linewidth}{0.08em}}
 \renewcommand\multirowsetup{\centering}
+
+% This page intentionally left blank [start] =============
+\makeatletter
+    \def\cleardoublepage{\clearpage%
+        \if@twoside
+            \ifodd\c@page\else
+                \vspace*{\fill}
+                \hfill
+                \begin{center}
+                \begin{small}
+                This page intentionally left blank.
+                \end{small}
+                \end{center}
+                \vspace{\fill}
+                \thispagestyle{empty}
+                \newpage
+                \if@twocolumn\hbox{}\newpage\fi
+            \fi
+        \fi
+    }
+\makeatother
+% This page intentionally left blank [end] ===============
 
 % Line spacing
 %\linespread{1.35} % this affects everything
@@ -95,25 +117,29 @@
 \setcounter{tocdepth}{3}
 
 % For the title page
-\title{New Strategies for Permutation\\Methods in Brain Imaging}
+\title{Statistical analysis of areal quantities through permutation}
 \author{Anderson M. Winkler}
 
 \begin{document}
-\maketitle
+%\maketitle
 \bibliographystyle{latex/scabbrvnat}
 
+\include{02firstpages}
 \pagestyle{fancy}
 \setstretch{\lspac}
-\blankpage \tableofcontents
-\blankpage \listoffigures
-\blankpage \listoftables
-% \blankpage \listofalgorithms
-\blankpage \include{10intro}
-\blankpage \include{20facewise}
-\blankpage \include{40permutation}
-\blankpage \include{51combination}
-\blankpage \appendix
+\cleardoublepage \tableofcontents
+\cleardoublepage \listoffigures
+\cleardoublepage \listoftables
+\cleardoublepage \include{10intro}
+\cleardoublepage \include{20areal}
+\cleardoublepage \include{40permutation}
+\cleardoublepage \include{50combination}
+\cleardoublepage \appendix
+\cleardoublepage \include{70valorisation}
+\cleardoublepage
+\addcontentsline{toc}{chapter}{References}
 \setstretch{1}
-\blankpage \bibliography{biblio}
-
+\bibliography{biblio}
+\pagestyle{empty}
+\cleardoublepage \include{90finalpages}
 \end{document}          
