@@ -676,7 +676,7 @@ While the proposed correction for the \textsc{mtp-ii} has a predictable conseque
 
 \section{Results}
 
-A large number of plots and tables were produced and are shown in the Supplementary Material. The Figures below contain only the most representative results, that are sufficient to highlight the major points.
+A large number of plots and tables were produced and are shown in the Appendix~\ref{sec:supplmat}. The Figures below contain only the most representative results, that are sufficient to highlight the major points.
 
 \subsection{Validity of the modified \textsc{npc}}
 
@@ -687,7 +687,7 @@ Both the original and the modified \textsc{npc} methods controlled the error rat
 \centerline{\includegraphics{images/validity_hist.eps}}
 \end{center}
 \vspace{-3mm}
-\caption[Histograms of p-values for the simulations.]{Histograms of p-values for the simulation without signal in either of the two partial tests (upper panel, blue bars) or with signal in both (lower panel, green bars). The values below each plot indicate the height (in percentage) of the first bar, which corresponds to p-values smaller than or equal to 0.05, along with the confidence interval (95\%, italic). Both original and modified \textsc{npc} methods controlled the error rates at the nominal level, and produced flat histograms in the absence of signal. The histograms suggest similar power for both approaches. See also the Supplemental Material.}
+\caption[Histograms of p-values for the simulations.]{Histograms of p-values for the simulation without signal in either of the two partial tests (upper panel, blue bars) or with signal in both (lower panel, green bars). The values below each plot indicate the height (in percentage) of the first bar, which corresponds to p-values smaller than or equal to 0.05, along with the confidence interval (95\%, italic). Both original and modified \textsc{npc} methods controlled the error rates at the nominal level, and produced flat histograms in the absence of signal. The histograms suggest similar power for both approaches. See also Appendix~\ref{sec:supplmat}.}
 \label{fig:comb:validity_hist}
 \end{figure}
 
@@ -704,7 +704,7 @@ When considering the uncorrected p-values, the modified \textsc{npc} yielded a m
 
 \subsection{Performance of combined tests}
 
-Representative results demonstrating the performance of the methods of Tippett, Fisher, Stouffer, Mudholkar--George, as well as Hotelling's $T^2$, is shown in Figure~\ref{fig:comb:performance}. The remaining results are browseable in the Supplementary Material. In the absence of signal (simulation \textsc{a}), all combining functions controlled the error rate at the level of the test or below it, never above, thus confirming their validity. With normally distributed (Gaussian) errors, most functions yielded uniformly distributed p-values, although some functions seemed to converge towards uniformity only as the number of partial tests is increased; this was the case for the methods of Wilkinson, Zaykin, Dudbridge--Koeleman (\textsc{dtp}) and Jiang. With skewed (Weibullian) errors, the error rate was controlled at the test level with the use of permutations; with sign-flippings or permutations with sign-flippings, the combined results tended to be conservative, and more so for the Hotelling's $T^2$ statistics (and likewise the Wilks' $\lambda$).
+Representative results demonstrating the performance of the methods of Tippett, Fisher, Stouffer, Mudholkar--George, as well as Hotelling's $T^2$, is shown in Figure~\ref{fig:comb:performance}. The remaining results are browsable in Appendix~\ref{sec:supplmat}. In the absence of signal (simulation \textsc{a}), all combining functions controlled the error rate at the level of the test or below it, never above, thus confirming their validity. With normally distributed (Gaussian) errors, most functions yielded uniformly distributed p-values, although some functions seemed to converge towards uniformity only as the number of partial tests is increased; this was the case for the methods of Wilkinson, Zaykin, Dudbridge--Koeleman (\textsc{dtp}) and Jiang. With skewed (Weibullian) errors, the error rate was controlled at the test level with the use of permutations; with sign-flippings or permutations with sign-flippings, the combined results tended to be conservative, and more so for the Hotelling's $T^2$ statistics (and likewise the Wilks' $\lambda$).
 
 \begin{figure}[p]
 \begin{center}
@@ -730,13 +730,13 @@ Using a conventional, mass univariate voxelwise tests, assessed through sign fli
 \centerline{\includegraphics{images/pain.eps}}
 \end{center}
 \vspace{-9mm}
-\caption[Results of the example pain study.]{Without combination, and with correction across voxels (\textsc{mtp-i}), no significant results were observed at the group level for any of the three tests. Combination using the methods of Fisher, Stouffer and Mudholkar--George (M--G), however, evidenced bilateral activity in the insula in response to hot, painful stimulation. A classical multivariate test, Hotelling's $T^2$, as well as the Tippett method, failed to identify these areas. An intersection-union test (conjunction) could not locate significant results; such a test has a different null hypothesis that distinguishes it from the others. Images are in radiological orientation. For cluster-level results, comparable to \citet{Brooks2005}, see the Supplementary Material.}
+\caption[Results of the example pain study.]{Without combination, and with correction across voxels (\textsc{mtp-i}), no significant results were observed at the group level for any of the three tests. Combination using the methods of Fisher, Stouffer and Mudholkar--George (M--G), however, evidenced bilateral activity in the insula in response to hot, painful stimulation. A classical multivariate test, Hotelling's $T^2$, as well as the Tippett method, failed to identify these areas. An intersection-union test (conjunction) could not locate significant results; such a test has a different null hypothesis that distinguishes it from the others. Images are in radiological orientation. For cluster-level results, comparable to \citet{Brooks2005}, see Appendix~\ref{sec:supplmat}.}
 \label{fig:comb:pain}
 \end{figure}
 
 The Hotelling's $T^2$ was not able to identify these regions, with almost negligible, sparse, single-voxel findings in the anterior insula, bilaterally. The conjunction test, that has a different \textsc{jnh}, and searches for areas where all partial tests are significant, identified a single, barely visible, isolated voxel in the right anterior insula.
 
-The above results are shown in Figure~\ref{fig:comb:pain}. Cluster-level maps that can directly be compared to the original findings of \citet{Brooks2005} are shown in the Supplementary Material.
+The above results are shown in Figure~\ref{fig:comb:pain}. Cluster-level maps that can directly be compared to the original findings of \citet{Brooks2005} are shown in Appendix~\ref{sec:supplmat}.
 
 \section{Discussion}
 
