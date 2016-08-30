@@ -50,7 +50,7 @@
   filecolor   = corlink,
   linkcolor   = corlink,
   urlcolor    = corlink,
-  pdftitle    = {Statistical analysis of areal quantities},
+  pdftitle    = {Statistical analysis of areal quantities in the brain through permutation tests},
   pdfauthor   = {Anderson M. Winkler}}
 
 % Header and footer
@@ -83,6 +83,13 @@
 %\newcommand{\blankpage}{\cleartooddpage[\thispagestyle{empty}]}
 \newcommand{\HRule}{\rule{\linewidth}{0.08em}}
 \renewcommand\multirowsetup{\centering}
+
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
 
 % This page intentionally left blank [start] =============
 \makeatletter
@@ -117,7 +124,7 @@
 \setcounter{tocdepth}{3}
 
 % For the title page
-\title{Statistical analysis of areal quantities through permutation}
+\title{Statistical analysis of areal quantities in the brain through permutation tests}
 \author{Anderson M. Winkler}
 
 \begin{document}
