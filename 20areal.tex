@@ -52,38 +52,33 @@ The facewise areas in the mesh representation of the brain can be computed trivi
 \subsection{Volume as an areal quantity}
 \label{sec:areal:volumes}
 
-Gray matter volume can be assessed using the partial volume effects of the gray matter in a per-voxel fashion using volume-based representations of the brain, such as in voxel-based morphometry \citep[\textsc{vbm}][]{Ashburner2000}, or as the amount of tissue present between the gray and white surfaces in surface-based representations. Using the surface-based representation, software such as FreeSurfer up to version 5.3.0 compute the volume through the following steps:
+Gray matter volume can be assessed using the partial volume effects of the gray matter in a per-voxel fashion using volume-based representations of the brain, such as in voxel-based morphometry \citep[\textsc{vbm}][]{Ashburner2000}, or as the amount of tissue present between the gray and white surfaces in surface-based representations. Using the surface-based representation, software such as FreeSurfer up to version 5.3.0 compute the volume by first calculating the area at each vertex as $\sfrac{1}{3}$ of the sum of the areas of all faces of the white surface that have that vertex in common, then multiplying that by the thickness at that vertex. Volume is also an areal quantity, that requires mass-conservative interpolation methods.
 
-\begin{enumerate}
-\item The area at each vertex is computed as $\sfrac{1}{3}$ of the sum of the areas of all faces of the white surface that have that vertex in common. 
-\item The volume is computed as the product of the area by the thickness at that vertex.
-\end{enumerate}
-
-This procedure, while providing a good approximation that is already superior to volume-based measurements for not being as susceptible to various artefacts that can affect the latter \citep{Ashburner2009}, is still problematic. Simple multiplication of thickness by area leaves considerable amounts of tissue unmeasured at the gyri, while measuring more than once pieces of tissue in the fundi of sulci. Figure~\ref{fig:areal:mantle} shows a simplification to a two-dimensional case of this phenomenon, that affects differentially, and in opposite directions, sulci and gyri.
-
-\begin{figure}[!p]
-\centering
-\includegraphics{images/mantle.eps}
-\caption[Simple multiplication leaves tissue over- or under-represented.]{(\emph{a}) A simplified two-dimensional representation of the cortex. If the volume is computed using simple multiplication of thickness by area, considerable amount of tissue is left unmeasured in the gyri, or measured more than once in sulci. (\emph{b}) The proposed method, would compute analytically the volumes of the regions of tissue between matching faces of white and pial surfaces, leaving no part of tissue unmeasured.}
-\label{fig:areal:mantle}
-\end{figure}
-
-The problem can be alleviated to some extent by using the mid-surface as the reference for area, as opposed to the white. Instead, a more exact solution is proposed here. It consists of using the three vertices that define a face in the white surface, and the matching vertices in the pial surface, to define an \emph{oblique truncated triangular pyramid}, which on its turn can be perfectly subdivided into three non-overlapping tetrahedra; the volumes of these are computed analytically, summed and assigned to each face of the surface representation, and used for subsequent analysis. Figure~\ref{fig:areal:pyramid} illustrates the procedure. More specifically, the procedure is as follows:
-
-\begin{figure}[!p]
-\centering
-\includegraphics[width=14cm]{images/pyramid.eps}
-\caption[Proposed method to compute volumes in the cortex.]{(\emph{a}) In the surface representation, the cortex is limited internally by the white and externally by the pial surface. (\emph{b}) and (\emph{c}) These two surfaces have matching vertices that can be used to delineate an oblique truncated triangular pyramid. (\emph{d}) In the proposed method, the six vertices of this pyramid are used to define three tetrahedra, the volumes of which are computed analytically.}
-\label{fig:areal:pyramid}
-\end{figure}
-
-\begin{enumerate}
-\item For a given face $A_w B_w C_w$ in the white surface, and its corresponding face $A_p B_p C_p$ in the pial surface, define an oblique truncated triangular pyramid using these six vertices.
-\item Split this truncated pyramid into three tetrahedra: $T_1 = (A_w,B_w,C_w,A_p)$, $T_2 = (A_p,B_p,C_p,B_w)$, and $T_3 = (A_p,C_p,C_w,B_w)$.
-\item For each such tetrahedra, let $\mathbf{a}$, $\mathbf{b}$, $\mathbf{c}$ and $\mathbf{d}$ represent its four vertices in terms of coordinates $[x\;y\;z]'$. Compute the volume as $|\mathbf{u}\cdot(\mathbf{v} \times \mathbf{w})|/6$, where $\mathbf{u} = \mathbf{a}-\mathbf{d}$, $\mathbf{v} = \mathbf{b}-\mathbf{d}$, $\mathbf{w} = \mathbf{c}-\mathbf{d}$, $\times$ represents the cross product, $\cdot$ represents the dot product, and $|\bullet|$ represents the vector norm.
-\end{enumerate}
-
-The procedure can be accelerated by setting $\mathbf{d}=A_p$, that is, the common vertex for all three tetrahedra, such that the vector subtractions can happen only once for all three. If vertexwise values are needed, these can be computed as $\sfrac{1}{3}$ of the volumes of all faces that meet at that vertex.
+%This procedure, while providing a good approximation that is already superior to volume-based measurements for not being as susceptible to various artefacts that can affect the latter \citep{Ashburner2009}, is still problematic. Simple multiplication of thickness by area leaves considerable amounts of tissue unmeasured at the gyri, while measuring more than once pieces of tissue in the fundi of sulci. Figure~\ref{fig:areal:mantle} shows a simplification to a two-dimensional case of this phenomenon, that affects differentially, and in opposite directions, sulci and gyri.
+%
+%\begin{figure}[!p]
+%\centering
+%\includegraphics{images/mantle.eps}
+%\caption[Simple multiplication leaves tissue over- or under-represented.]{(\emph{a}) A simplified two-dimensional representation of the cortex. If the volume is computed using simple multiplication of thickness by area, considerable amount of tissue is left unmeasured in the gyri, or measured more than once in sulci. (\emph{b}) The proposed method, would compute analytically the volumes of the regions of tissue between matching faces of white and pial surfaces, leaving no part of tissue unmeasured.}
+%\label{fig:areal:mantle}
+%\end{figure}
+%
+%The problem can be alleviated to some extent by using the mid-surface as the reference for area, as opposed to the white. Instead, a more exact solution is proposed here. It consists of using the three vertices that define a face in the white surface, and the matching vertices in the pial surface, to define an \emph{oblique truncated triangular pyramid}, which on its turn can be perfectly subdivided into three non-overlapping tetrahedra; the volumes of these are computed analytically, summed and assigned to each face of the surface representation, and used for subsequent analysis. Figure~\ref{fig:areal:pyramid} illustrates the procedure. More specifically, the procedure is as follows:
+%
+%\begin{figure}[!p]
+%\centering
+%\includegraphics[width=14cm]{images/pyramid.eps}
+%\caption[Proposed method to compute volumes in the cortex.]{(\emph{a}) In the surface representation, the cortex is limited internally by the white and externally by the pial surface. (\emph{b}) and (\emph{c}) These two surfaces have matching vertices that can be used to delineate an oblique truncated triangular pyramid. (\emph{d}) In the proposed method, the six vertices of this pyramid are used to define three tetrahedra, the volumes of which are computed analytically.}
+%\label{fig:areal:pyramid}
+%\end{figure}
+%
+%\begin{enumerate}
+%\item For a given face $A_w B_w C_w$ in the white surface, and its corresponding face $A_p B_p C_p$ in the pial surface, define an oblique truncated triangular pyramid using these six vertices.
+%\item Split this truncated pyramid into three tetrahedra: $T_1 = (A_w,B_w,C_w,A_p)$, $T_2 = (A_p,B_p,C_p,B_w)$, and $T_3 = (A_p,C_p,C_w,B_w)$.
+%\item For each such tetrahedra, let $\mathbf{a}$, $\mathbf{b}$, $\mathbf{c}$ and $\mathbf{d}$ represent its four vertices in terms of coordinates $[x\;y\;z]'$. Compute the volume as $|\mathbf{u}\cdot(\mathbf{v} \times \mathbf{w})|/6$, where $\mathbf{u} = \mathbf{a}-\mathbf{d}$, $\mathbf{v} = \mathbf{b}-\mathbf{d}$, $\mathbf{w} = \mathbf{c}-\mathbf{d}$, $\times$ represents the cross product, $\cdot$ represents the dot product, and $|\bullet|$ represents the vector norm.
+%\end{enumerate}
+%
+%The procedure can be accelerated by setting $\mathbf{d}=A_p$, that is, the common vertex for all three tetrahedra, such that the vector subtractions can happen only once for all three. If vertexwise values are needed, these can be computed as $\sfrac{1}{3}$ of the volumes of all faces that meet at that vertex.
 
 \subsection{Registration}
 
