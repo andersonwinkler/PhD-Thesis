@@ -31,22 +31,23 @@
 \vfill
 
 %\begin{large}
-to obtain the joint degree of Doctor at the\\
-Universiteit Maastricht and Universit\'{e} de Li\`{e}ge
+to obtain the joint degree of Doctor at\\
+Maastricht University and Universit\'{e} de Li\`{e}ge,\\
+in Biomedical and Pharmaceutical Sciences.
 %\end{large}
 
 \vfill
 
 %\begin{large}
 on the authorities of the Rectores Magnifici,\\
-Professor Luc Soete and Professor Albert Corhay
+Professor Rianne Letschert and Professor Albert Corhay.
 %\end{large}
 
 \vfill
 
 %\begin{large}
 in accordance with the decision of the Board of Deans,\\
-to be defended in public on Monday the 31 February 2016 at 10h00
+to be defended in public on Monday the 10 July 2017 at 16h00.
 %\end{large}
 
 \vfill
@@ -71,29 +72,38 @@ by
 \newpage
 \setstretch{1}
 \noindent
-\textbf{Supervisors:}\\
-Prof.\ Dr.\ Paul M.\ Matthews\\
-Prof.\ Dr.\ Andre Luxen
+\textbf{Supervisors:}
+\begin{itemize}[leftmargin=0mm]
+\item[-] Prof.\ Dr.\ Paul M.\ Matthews, Maastricht University, The Netherlands
+\item[-] Prof.\ Dr.\ Andre Luxen, Universit\'{e} de Li\`{e}ge, Belgium
+\end{itemize}
 
 \vspace*{5mm}
 
 \noindent
-\textbf{Co-supervisor:}\\
-Prof.\ Dr.\ Thomas E.\ Nichols\\
+\textbf{Co-supervisor:}
+\begin{itemize}[leftmargin=0mm]
+\item[-] Prof.\ Dr.\ Thomas E.\ Nichols, University of Warwick, United Kingdom
+\end{itemize}
 
-%\vspace*{5mm}
+\vspace*{5mm}
 
 \noindent
-\textbf{Assessment Committee:}\\
-Prof.\ Dr.\ Pierre Maquet, Universit\'{e} de Li\`{e}ge, Belgium\\
-Prof.\ Dr.\ Gerard van Breukelen, Universiteit Maastricht, The Netherlands\\
-Prof.\ Dr.\ John Suckling, University of Cambridge, United Kingdom\\
-Prof.\ Dr.\ Edouard Duchesnay, Commissariat \`{a} l'\'{e}nergie atomique et aux \'{e}nergies alternatives (\textsc{cea}), France
+\textbf{Assessment Committee:}
+\begin{itemize}[leftmargin=0mm]
+\setlength\itemsep{0mm}
+\item[-] Ir.\ Dr.\ Christophe Phillips, Universit\'{e} de Li\`{e}ge, Belgium (\emph{head})
+\item[-] Prof.\ Dr.\ Gerard J.\ P.\ van Breukelen, Maastricht University, The Netherlands
+\item[-] Prof.\ Dr.\ Pierre Maquet, Universit\'{e} de Li\`{e}ge, Belgium
+\item[-] Dr.\ Edouard Duchesnay, Commissariat \`{a} l'\'{e}nergie atomique et aux \'{e}nergies alternatives (\textsc{cea}), France
+\item[-] Prof.\ Dr.\ John Suckling, University of Cambridge, United Kingdom
+\item[-] Dr.\ Giancarlo Valente, Maastricht University, The Netherlands
+\end{itemize}
 
 \vfill
 
 \noindent
-ISBN: 978-00-0000-000-0 \textcopyright\ Anderson M.\ Winkler, 2016.\\
+\textcopyright\ Anderson M.\ Winkler, 2016.\\
 The work presented in this thesis was funded by the European Union within the \textsc{people} Programme \textsc{fp7}: Marie Curie Initial Training Networks (\textsc{fp7-people-itn-2008}), Grant Agreement 238593 ``Neurophysics'', in which Universiteit Maas\-tricht, Universit\'{e} de Li\`{e}ge, Forschungszentrum J\"{u}lich, and GlaxoSmithKline were network partners.
 
 % ======[ABSTRACT]======
@@ -125,36 +135,41 @@ January 2016
 
 \vspace*{\fill}
 
-%% ======[ACKNOWLEDGEMENTS]======
-%\cleardoublepage
-%\newpage
-%\setstretch{1}
-%\vspace*{\fill}
-%\begin{center}
-%\begin{Large}
-%\textbf{Acknowledgements}
-%\end{Large}
-%\end{center}
-%
-%\noindent
-%\`{A} minha fam\'{i}lia.
-%
-%\vspace{3mm}
-%
-%\noindent
-%To the whole network of supervisors and promoters involved in this multi-insti\-tu\-tional project, especially Prof.\ Dr.\ Thomas E.\ Nichols and Prof.\ Dr.\ Stephen M.\ Smith, for their effective advisorship.
-%
-%\vspace{3mm}
-%
-%\noindent
-%I am thankful extremely to the funding support provided by the Marie Curie --- Initial Training Network (\textsc{mc-itn}) ``Methods in Neuroimaging'', through its four core partners, Universiteit Maastricht, Universit\'{e} de Li\`{e}ge, Forschungszentrum J\"{u}lich and GlaxoSmithKline. In particular, I am much thankful to the support of Peter de Weerd, Christophe Phillips, Philip S.\ Murphy, and Paul M.\ Matthews.
-%
-%\vspace{3mm}
-%
-%\noindent
-%Some chapters benefited from strong, prolific, and enriching collaboration. The work on areal interpolation (Chapter~\ref{sec:areal}) would have been impossible without the help of, first and foremost, David C.\ Glahn. I am also much indebted to Mert R.\ Sabuncu, B.\ T.\ Thomas Yeo, Bruce Fischl, Douglas N.\ Greve, Peter Kochunov, and John Blangero. The work on permutation for the general linear model (Chapter~\ref{sec:perm}) greatly benefited from the participation of Gerard R.\ Ridgway and Matthew A.\ Webster. The work on combined inference (Chapter~\ref{sec:comb}) was much improved thanks to the participation of Matthew A.\ Webster, Jonathan C.\ Brooks and Irene Tracey.
-%
-%\vspace*{\fill}
+% ======[ACKNOWLEDGEMENTS]======
+\cleardoublepage
+\newpage
+\setstretch{1}
+\vspace*{\fill}
+\begin{center}
+\begin{Large}
+\textbf{Acknowledgements}
+\end{Large}
+\end{center}
+
+\noindent
+\`{A} minha fam\'{i}lia.
+
+\vspace{3mm}
+
+\noindent
+To the whole network of supervisors and promoters involved in this multi-insti\-tu\-tional project, especially Prof.\ Dr.\ Thomas E.\ Nichols and Prof.\ Dr.\ Stephen M.\ Smith, for their effective advisorship.
+
+\vspace{3mm}
+
+\noindent
+I am much thankful to the support of Prof.\ Peter de Weerd, Prof.\ Andre Luxen, Dr.\ Philip S.\ Murphy, and Prof.\ Paul M.\ Matthews. I also would like to thank the much helpful assistance of Mr.\ Ermo Dani\"{e}ls, Ms.\ Christl van Veen and Ms.\ Jeannette Boschma.
+
+\vspace{3mm}
+
+\noindent
+I am extremely thankful to the funding provided by the Marie Curie --- Initial Training Network (\textsc{mc-itn}) ``Methods in Neuroimaging'', through its four core partners, Universiteit Maastricht, Universit\'{e} de Li\`{e}ge, Forschungszentrum J\"{u}lich and GlaxoSmithKline.
+
+\vspace{3mm}
+
+\noindent
+Some chapters benefited from strong, prolific, and enriching collaboration. The work on areal interpolation (Chapter~\ref{sec:areal}) would have been impossible without the help of, first and foremost, David C.\ Glahn. I am also much thankful to Mert R.\ Sabuncu, B.\ T.\ Thomas Yeo, Bruce Fischl, Douglas N.\ Greve, Peter Kochunov, and John Blangero. The work on permutation for the general linear model (Chapter~\ref{sec:perm}) greatly benefited from the participation of Gerard R.\ Ridgway and Matthew A.\ Webster. The work on combined inference (Chapter~\ref{sec:comb}) was much improved thanks to the participation of Matthew A.\ Webster, Jonathan C.\ Brooks and Irene Tracey.
+
+\vspace*{\fill}
 
 % ======[PROPOSITIONS]======
 \cleardoublepage
@@ -188,7 +203,7 @@ Propositions 1--4 are related to the subject matter of the dissertation; Proposi
 \item Pycnophylactic interpolation is the most appropriate method to resample areal quantities to allow comparisons between individuals.
 \item The $G$-statistic provides a simple generalisation over various well known statistics. Written in matrix form, it can be computed quickly for imaging data, and assessed through permutations, sign flippings, or permutations with sign flippings, either freely or with restrictions imposed by exchangeability blocks,  depending on knowledge or assumptions about the data and residuals.
 \item Non-parametric combination can be modified so as to run in a single phase, rendering its use feasible for imaging data, and offering in general higher power compared to classical multivariate tests.
-\item Voxel-based morphometry (\textsc{vbm}) is an inferior method that had its time, but that should no longer be used for serious research of cortical anatomy, particularly given that other methods are readily available.
+\item Voxel-based morphometry (\textsc{vbm}) had its time, but should no longer be used for serious research of cortical anatomy, particularly given that other methods are readily available.
 \item Cortical surface area at finer resolution can provide adequate traits that are closer to gene action and may be more successful for the identification of genes that influence brain structure and function.
 \item Cortical surface area is heritable and has potential to be an endophenotype for psychiatric disorders.
 \item Knowledge of genetic influences on brain structure and function should be used to fight disease and improve quality of life. Its influences on policy making, however, must be seen with caution, and receive due, wide consideration.

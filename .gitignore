@@ -10,3 +10,4 @@
 *.gz
 *.pdf
 *~
+.DS_Store

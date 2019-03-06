@@ -39,8 +39,9 @@
 % \usepackage[bf,small,sf]{caption}
 
 % Some colors
-\definecolor{corlink}{rgb}{0, 0, .4}
+\definecolor{corlink}{rgb}{0, 0, 0}
 \definecolor{orange}{rgb}{.7, .40, 0}
+\definecolor{lightgray}{rgb}{.8, .8, .8}   % light gray
 
 % Hyperlinks setup and meta-information
 \usepackage{hyperref}
@@ -91,7 +92,7 @@
   \endgroup
 }
 
-% This page intentionally left blank [start] =============
+% ========== This page intentionally left blank [start] =============
 \makeatletter
     \def\cleardoublepage{\clearpage%
         \if@twoside
@@ -100,7 +101,8 @@
                 \hfill
                 \begin{center}
                 \begin{small}
-                This page intentionally left blank.
+                {\color{lightgray}
+                This page intentionally left blank.}
                 \end{small}
                 \end{center}
                 \vspace{\fill}
@@ -111,7 +113,7 @@
         \fi
     }
 \makeatother
-% This page intentionally left blank [end] ===============
+% ========== This page intentionally left blank [end] ===============
 
 % Line spacing
 %\linespread{1.35} % this affects everything
